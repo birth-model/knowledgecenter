@@ -246,6 +246,13 @@
     position: relative;
     z-index: 10;
   }
+  /* Handoff button keeps its dark background when highlighted */
+  .patient-drawer .handoff-btn.guide-highlight {
+    background: #1e3a3a !important;
+    color: white !important;
+    position: relative;
+    z-index: 100005 !important; /* Above spotlight overlay (99999) */
+  }
   /* Dim main content when drawer is the focus */
   body:has(#clinician-step-guide.position-left-drawer.active) #clinician-platform .clinician-my-patients-view,
   body:has(#clinician-step-guide.position-left-drawer.active) #clinician-platform .mb-cards-grid {
@@ -263,15 +270,15 @@
     padding: 16px 22px;
   }
   #clinician-step-guide .step-guide-number {
-    width: 36px; height: 36px;
-    font-size: 16px;
+    width: 40px; height: 40px;
+    font-size: 18px;
   }
   #clinician-step-guide .step-guide-title {
-    font-size: 24px;
+    font-size: 26px;
   }
   #clinician-step-guide .step-guide-body {
     padding: 22px;
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1.65;
   }
   #clinician-step-guide .step-guide-footer {
@@ -709,18 +716,19 @@
   }
   /* Flashing orange border for tour clickable elements */
   .tour-flash-border {
-    border: 3px solid #f97316 !important;
-    animation: tour-flash 1s infinite !important;
+    border: 4px solid #f97316 !important;
+    animation: tour-flash 0.8s infinite !important;
     position: relative;
+    border-radius: 8px !important;
   }
   @keyframes tour-flash {
     0%, 100% {
       border-color: #f97316;
-      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.6), 0 0 20px rgba(249, 115, 22, 0.4);
+      box-shadow: 0 0 0 6px rgba(249, 115, 22, 0.7), 0 0 30px rgba(249, 115, 22, 0.5), inset 0 0 10px rgba(249, 115, 22, 0.1);
     }
     50% {
-      border-color: #fdba74;
-      box-shadow: 0 0 0 8px rgba(249, 115, 22, 0.3), 0 0 30px rgba(249, 115, 22, 0.2);
+      border-color: #ea580c;
+      box-shadow: 0 0 0 10px rgba(249, 115, 22, 0.4), 0 0 40px rgba(249, 115, 22, 0.3), inset 0 0 15px rgba(249, 115, 22, 0.15);
     }
   }
   @keyframes fadeInUp {
@@ -1529,6 +1537,11 @@
   .nurse-count-num { color: var(--teal-mid); font-size: 18px; font-weight: 700; }
   .unit-panel-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: #f1f5f9; border: 1px solid var(--border); border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--text-secondary); cursor: pointer; }
   .unit-panel-btn:hover { background: #e2e8f0; }
+
+  /* Nurse Section View - matches Charge Nurse styling */
+  #nurse-section-view-wrapper {
+    width: 100%;
+  }
 
   .nurse-canvas-area { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; padding: 20px; min-height: 400px; background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); }
 
@@ -3679,18 +3692,19 @@
   .dn-inline-fill-btn:hover { background: #FDE68A; border-color: #ea580c; box-shadow: 0 2px 6px rgba(249,115,22,0.3); }
   /* Flashing animation for laceration type field during tour */
   .dn-inline-fill-btn.tour-flash-inline {
-    animation: inline-field-flash 1.2s ease-in-out infinite;
+    animation: inline-field-flash 0.8s ease-in-out infinite;
+    border-width: 2.5px !important;
   }
   @keyframes inline-field-flash {
     0%, 100% {
       background: #FEF3C7;
       border-color: #f97316;
-      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0);
+      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.5), 0 0 15px rgba(249, 115, 22, 0.3);
     }
     50% {
       background: #FFEDD5;
       border-color: #ea580c;
-      box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.3);
+      box-shadow: 0 0 0 8px rgba(249, 115, 22, 0.35), 0 0 25px rgba(249, 115, 22, 0.25);
     }
   }
   .dn-inline-filled { font-weight: 500; color: inherit; font-size: inherit; font-family: inherit; }
@@ -4144,6 +4158,11 @@
     font-weight: 600;
     box-shadow: 0 2px 4px rgba(13, 148, 136, 0.3);
   }
+  /* Blue variant for nurse/charge tours */
+  .epic-integration-body.nurse-mode .activity-item.active {
+    background: linear-gradient(135deg, #0B81FF 0%, #0969da 100%);
+    box-shadow: 0 2px 4px rgba(11, 129, 255, 0.3);
+  }
   .activity-icon { font-size: 14px; }
 
   /* Footer */
@@ -4292,7 +4311,15 @@
     background: #0d9488 !important;
     color: white !important;
     position: relative;
-    z-index: 100;
+    z-index: 200020 !important; /* Above modal and spotlight */
+  }
+  /* Universal handoff close button highlight - must be above modal z-index (150000) */
+  #universal-handoff-close-btn.guide-highlight {
+    position: relative;
+    z-index: 200020 !important;
+    background: rgba(255,255,255,0.25) !important;
+    outline: 3px solid #f97316 !important;
+    outline-offset: 2px;
   }
   .handoff-modal-btn.close.action-highlight::before,
   .drawer-close.action-highlight::before {
@@ -5073,33 +5100,35 @@
         <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5" style="width:32px;height:32px"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6"/><path d="M9 16h6"/></svg></div>
         <div class="role-name">Charge Nurse</div>
         <div class="role-desc">L&D Charge Board, staffing, room allocation, unit oversight</div>
-        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~3 min</div>
+        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~2 min</div>
       </div>
       <div class="role-card" onclick="startDemo('nurse')">
-        <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5" style="width:32px;height:32px"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5v3M10 7h4"/></svg></div>
+        <div class="role-icon" style="font-size:28px;">❤️</div>
         <div class="role-name">Nurse</div>
         <div class="role-desc">My Patients, ratio changes, nursing handoffs</div>
-        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~3 min</div>
+        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~5 min</div>
       </div>
       <div class="role-card" onclick="startDemo('clinician')">
-        <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5" style="width:32px;height:32px"><path d="M6 2v6"/><path d="M18 2v6"/><path d="M6 8a4 4 0 0 0 4 4h0a4 4 0 0 0 4-4"/><circle cx="18" cy="16" r="4"/><path d="M14 12v2a2 2 0 0 0 2 2h0"/></svg></div>
+        <div class="role-icon" style="font-size:28px;">🩺</div>
         <div class="role-name">Clinician</div>
         <div class="role-desc">Patient care, delivery notes, historical reviews</div>
-        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~8 min</div>
+        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~5 min</div>
       </div>
       <div class="role-card" onclick="startDemo('resident')">
         <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5" style="width:32px;height:32px"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg></div>
         <div class="role-name">Resident</div>
         <div class="role-desc">Assisting attendings, delivery notes, procedures</div>
-        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~3 min</div>
+        <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~4 min</div>
       </div>
-      <div class="role-card" onclick="startDemo('operations')">
+      <!-- Hidden for now -->
+      <div class="role-card" onclick="startDemo('operations')" style="display:none">
         <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5" style="width:32px;height:32px"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
         <div class="role-name">L&D Operations</div>
         <div class="role-desc">Room coordination, unit oversight, census tracking</div>
         <div class="role-time"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> ~3 min</div>
       </div>
-      <div class="role-card" onclick="startDemo('tv')">
+      <!-- Hidden for now -->
+      <div class="role-card" onclick="startDemo('tv')" style="display:none">
         <div class="role-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0d9488" stroke-width="1.5" style="width:32px;height:32px"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg></div>
         <div class="role-name">Motherboard</div>
         <div class="role-desc">Display setup and usage on unit TVs</div>
@@ -5113,7 +5142,7 @@
 <div class="demo-page" id="demo-charge">
   <div class="demo-progress"><div class="demo-progress-bar" id="charge-progress" style="width:25%"></div></div>
   <div class="demo-top-bar">
-    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Charge Nurse Training — ~3 min</span></div>
+    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Charge Nurse Training — ~2 min</span></div>
     <button class="back-btn" onclick="showLanding()">← Exit Training</button>
   </div>
 
@@ -5133,23 +5162,180 @@
       </div>
     </div>
 
-    <div class="section-tabs-row" id="charge-tabs-row">
-      <div class="section-tabs">
-        <button class="section-tab active" onclick="switchTab(this, 'all')">All</button>
-        <button class="section-tab" onclick="switchTab(this, 'north')">L&D North</button>
-        <button class="section-tab" onclick="switchTab(this, 'south')">L&D South</button>
-        <button class="section-tab" onclick="switchTab(this, 'triage')">Triage</button>
-        <button class="section-tab" onclick="switchTab(this, 'antepartum')">Antepartum</button>
-        <button class="section-tab" onclick="switchTab(this, 'or')">OR/Recovery</button>
-      </div>
-      <div class="section-staffing" id="charge-staffing">
+    <div class="resident-section-tabs" id="charge-section-tabs">
+      <button class="resident-section-tab" id="charge-tab-mypatients" data-section="mypatients" onclick="switchChargeSection('mypatients')">My Patients <span class="tab-count">2</span></button>
+      <div class="tab-divider"></div>
+      <button class="resident-section-tab" id="charge-tab-north" data-section="north" onclick="switchChargeSection('north')">L&D North <span class="tab-count">13</span></button>
+      <button class="resident-section-tab" id="charge-tab-south" data-section="south" onclick="switchChargeSection('south')">L&D South <span class="tab-count">9</span></button>
+      <button class="resident-section-tab" id="charge-tab-triage" data-section="triage" onclick="switchChargeSection('triage')">Triage <span class="tab-count">4</span></button>
+      <button class="resident-section-tab" id="charge-tab-antepartum" data-section="antepartum" onclick="switchChargeSection('antepartum')">Antepartum <span class="tab-count">2</span></button>
+      <button class="resident-section-tab" id="charge-tab-or" data-section="or" onclick="switchChargeSection('or')">OR/Recovery <span class="tab-count">6</span></button>
+      <button class="resident-section-tab active" id="charge-tab-all" data-section="all" onclick="switchChargeSection('all')">All L&D <span class="tab-count">32</span></button>
+      <button class="resident-section-tab" id="charge-tab-postpartum" data-section="postpartum" onclick="switchChargeSection('postpartum')">Postpartum <span class="tab-count">10</span></button>
+      <div class="section-staffing" id="charge-staffing" style="margin-left: auto;">
         <span class="staffing-label">All Sections Nurses</span>
         <span class="staffing-box this-shift"><span class="staffing-value">16</span> <span class="staffing-desc">This Shift</span></span>
         <span class="staffing-box next-shift"><span class="staffing-value">3</span> <span class="staffing-desc">Next Shift</span></span>
       </div>
     </div>
 
-    <div class="section-header"><div><span class="section-name">All Sections</span><span class="section-count">12 patients</span></div></div>
+    <!-- Charge Nurse My Patients View - Large nurse-style cards (hidden by default) -->
+    <div class="nurse-canvas-area" id="charge-mypatients-view" style="display: none;">
+      <!-- Maria Santos Card -->
+      <div class="nurse-patient-card status-induction" id="charge-mypatients-card-1" onclick="openDrawer(event, 'maria')">
+        <div class="npc-status-bar">INDUCTION</div>
+        <div class="npc-header">
+          <div class="npc-room-badge">0881-01</div>
+          <div class="npc-patient-info">
+            <div class="npc-name">Maria Santos</div>
+            <div class="npc-demo">27y · G2P1001 · 39w2d · BMI 31.2</div>
+          </div>
+          <div class="npc-badge-row">
+            <span class="npc-badge pree">PREE MAG 2g</span>
+            <span class="npc-badge gdm">GDMA2 BG 128</span>
+          </div>
+        </div>
+        <div class="npc-indication">
+          <span style="font-size:12px;font-weight:600;color:#b45309;font-style:italic;">Post-dates induction</span>
+        </div>
+        <div class="npc-content">
+          <div class="npc-cervix-section">
+            <div class="npc-cervix-label">CERVICAL EXAM</div>
+            <div class="npc-cervix-value">6/80/+0</div>
+            <div class="npc-cervix-time">@ <span class="exam-time">2:08 AM</span></div>
+          </div>
+          <div class="npc-membrane-epi-row">
+            <div class="npc-membrane-item">
+              <span class="npc-item-label">MEMBRANES</span>
+              <span class="npc-item-value">AROM @ 8:15 AM · <span class="clear">Clear</span></span>
+            </div>
+            <div class="npc-epi-item">
+              <span class="npc-item-label">EPIDURAL</span>
+              <span class="npc-item-value">@ 7:45 AM</span>
+            </div>
+          </div>
+          <div class="npc-predictions">
+            <div class="npc-pred-item etfd">
+              <span class="npc-pred-label">ETFD</span>
+              <span class="npc-pred-value"><span class="etfd-maria">5:08 AM</span></span>
+            </div>
+            <div class="npc-pred-item etd">
+              <span class="npc-pred-label">ETD</span>
+              <span class="npc-pred-value"><span class="edt-maria">6:08 AM</span></span>
+            </div>
+          </div>
+          <div class="npc-vitals-section">
+            <div class="npc-vitals-header">
+              <span class="npc-vitals-title">VITAL TRENDS</span>
+              <span class="npc-vitals-toggle">▼</span>
+            </div>
+            <div class="npc-vitals-list">
+              <div class="npc-vital-item"><span class="npc-vital-label">BP:</span><span class="npc-vital-trend">BP stable 114/70-118/72</span></div>
+              <div class="npc-vital-item"><span class="npc-vital-label">HR:</span><span class="npc-vital-trend">HR stable 76-80 bpm</span></div>
+              <div class="npc-vital-item"><span class="npc-vital-label">SPO2:</span><span class="npc-vital-trend">SpO2 stable 99-100%</span></div>
+              <div class="npc-vital-item"><span class="npc-vital-label">TEMP:</span><span class="npc-vital-trend">Temp stable 98.2-98.4°F</span></div>
+            </div>
+          </div>
+          <div class="npc-info-row">
+            <div class="npc-info-item"><span class="npc-info-label">GBS:</span> <span class="npc-info-value gbs-positive">Positive · On Abx</span></div>
+            <div class="npc-info-item"><span class="npc-info-label">ALLERGIES:</span> <span class="npc-info-value" style="color:#dc2626;font-weight:600;">Penicillin, Sulfa</span></div>
+          </div>
+          <div class="npc-labs-row">
+            <div class="npc-lab"><span class="npc-lab-value">9.2</span><span class="npc-lab-label">WBC</span></div>
+            <div class="npc-lab"><span class="npc-lab-value">11.8</span><span class="npc-lab-label">HGB</span></div>
+            <div class="npc-lab"><span class="npc-lab-value">35.2</span><span class="npc-lab-label">HCT</span></div>
+            <div class="npc-lab"><span class="npc-lab-value">245</span><span class="npc-lab-label">PLT</span></div>
+          </div>
+          <div class="npc-meds">
+            <span class="npc-med-icon">💊</span>
+            <span class="npc-med-text">Pitocin 8 mU · LR @ 125 · Ancef</span>
+          </div>
+        </div>
+        <div class="npc-footer">
+          <div class="npc-provider-row">
+            <span class="npc-provider">Jennifer S., RN · S. Rowen, CNM</span>
+            <span class="npc-pph low">PPH: Low</span>
+          </div>
+          <button class="npc-handoff-btn" onclick="event.stopPropagation(); openHandoff()">Nursing Handoff</button>
+        </div>
+      </div>
+      <!-- Susan Johnson Card -->
+      <div class="nurse-patient-card status-scheduled-cs" id="charge-mypatients-card-2" onclick="openDrawer(event, 'susan')">
+        <div class="npc-status-bar" style="background:#6b7280;">SCHEDULED C/S</div>
+        <div class="npc-header">
+          <div class="npc-room-badge" style="background:#374151;">OR-1</div>
+          <div class="npc-patient-info">
+            <div class="npc-name">Susan Johnson</div>
+            <div class="npc-demo">34y · G3P2002 · 39w0d · BMI 32.1</div>
+          </div>
+        </div>
+        <div class="npc-indication">
+          <span style="font-size:12px;font-weight:600;color:#4b5563;font-style:italic;">Repeat cesarean section</span>
+        </div>
+        <div class="npc-content">
+          <div class="npc-cervix-section">
+            <div class="npc-cervix-label">SCHEDULED TIME</div>
+            <div class="npc-cervix-value" style="color:#374151;">10:30 AM</div>
+            <div class="npc-cervix-time" style="color:#6b7280;">C/S</div>
+          </div>
+          <div class="npc-membrane-epi-row">
+            <div class="npc-membrane-item">
+              <span class="npc-item-label">MEMBRANES</span>
+              <span class="npc-item-value">Intact</span>
+            </div>
+            <div class="npc-epi-item">
+              <span class="npc-item-label">SPINAL</span>
+              <span class="npc-item-value">Pending</span>
+            </div>
+          </div>
+          <div class="npc-predictions" style="background:#f3f4f6;">
+            <div class="npc-pred-item" style="background:#e5e7eb;">
+              <span class="npc-pred-label">PRE-OP ABX</span>
+              <span class="npc-pred-value" style="color:#374151;">Given</span>
+            </div>
+            <div class="npc-pred-item" style="background:#e5e7eb;">
+              <span class="npc-pred-label">ANCEF</span>
+              <span class="npc-pred-value" style="color:#374151;">9:45 AM</span>
+            </div>
+          </div>
+          <div class="npc-vitals-section">
+            <div class="npc-vitals-header">
+              <span class="npc-vitals-title">VITAL TRENDS</span>
+              <span class="npc-vitals-toggle">▼</span>
+            </div>
+            <div class="npc-vitals-list">
+              <div class="npc-vital-item"><span class="npc-vital-label">BP:</span><span class="npc-vital-trend">BP stable 120/76-124/78</span></div>
+              <div class="npc-vital-item"><span class="npc-vital-label">HR:</span><span class="npc-vital-trend">HR stable 80-84 bpm</span></div>
+              <div class="npc-vital-item"><span class="npc-vital-label">SPO2:</span><span class="npc-vital-trend">SpO2 stable 98-99%</span></div>
+              <div class="npc-vital-item"><span class="npc-vital-label">TEMP:</span><span class="npc-vital-trend">Temp stable 98.0-98.2°F</span></div>
+            </div>
+          </div>
+          <div class="npc-info-row">
+            <div class="npc-info-item"><span class="npc-info-label">GBS:</span> <span class="npc-info-value gbs-negative">Negative</span></div>
+            <div class="npc-info-item"><span class="npc-info-label">ALLERGIES:</span> <span class="npc-info-value">NKDA</span></div>
+          </div>
+          <div class="npc-labs-row">
+            <div class="npc-lab"><span class="npc-lab-value">8.1</span><span class="npc-lab-label">WBC</span></div>
+            <div class="npc-lab"><span class="npc-lab-value">12.2</span><span class="npc-lab-label">HGB</span></div>
+            <div class="npc-lab"><span class="npc-lab-value">36.4</span><span class="npc-lab-label">HCT</span></div>
+            <div class="npc-lab"><span class="npc-lab-value">220</span><span class="npc-lab-label">PLT</span></div>
+          </div>
+          <div class="npc-meds">
+            <span class="npc-med-icon">💊</span>
+            <span class="npc-med-text">LR @ 125 · Ancef (pre-op)</span>
+          </div>
+        </div>
+        <div class="npc-footer">
+          <div class="npc-provider-row">
+            <span class="npc-provider">Jennifer S., RN · A. Adams, MD</span>
+            <span class="npc-pph medium">PPH: Medium</span>
+          </div>
+          <button class="npc-handoff-btn" onclick="event.stopPropagation(); openHandoff()">Nursing Handoff</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-header" id="charge-section-header"><div><span class="section-name">All Sections</span><span class="section-count">12 patients</span></div></div>
 
     <div class="cards-grid" id="charge-cards">
       <!-- Induction patient - Maria Santos -->
@@ -6161,7 +6347,7 @@
 
   <!-- Bottom navigation bar hidden - using step guide modal instead -->
   <div class="demo-controls" style="display:none;">
-    <div class="training-title"><span class="title-text">Charge Nurse Training</span><span class="time-badge">~3 min</span></div>
+    <div class="training-title"><span class="title-text">Charge Nurse Training</span><span class="time-badge">~2 min</span></div>
     <button class="demo-btn secondary" onclick="chargeStep(-1)">← Previous</button>
     <div class="step-indicator"><span class="step-label">STEP</span><span class="step-num" id="charge-step-num">1</span><span class="step-of">of</span><span class="step-total" id="charge-total-steps">7</span></div>
     <button class="demo-btn primary" onclick="chargeStep(1)">Next →</button>
@@ -6173,28 +6359,28 @@
     Skip Tour & Explore →
   </button>
 
-</div>
-
-<!-- Step Guide Modal for Charge Demo -->
-<div class="step-guide-overlay" id="charge-step-guide">
-  <div class="step-guide-modal">
-    <div class="step-guide-header">
-      <span class="step-guide-number" id="guide-step-num">1</span>
-      <span class="step-guide-title" id="guide-step-title">Delivery Time Predictions</span>
-    </div>
-    <div class="step-guide-body" id="guide-step-body">
-      Look at the patient cards. Each one shows <strong>ETFD</strong> (Estimated Time to Full Dilation) and <strong>ETD</strong> (Estimated Time of Delivery).
-    </div>
-    <div class="step-guide-action" id="guide-step-action" style="display:none;">
-      <span class="action-icon">👆</span>
-      <span class="action-text" id="guide-action-text">Click on Maria Santos' card</span>
-    </div>
-    <div class="step-guide-footer">
-      <button class="guide-btn secondary" id="guide-prev-btn" onclick="chargeStep(-1)">← Back</button>
-      <span class="guide-progress"><span id="guide-current">1</span> of <span id="guide-total">6</span></span>
-      <button class="guide-btn primary" id="guide-next-btn" onclick="chargeStep(1)">Got it →</button>
+  <!-- Step Guide Modal for Charge Demo -->
+  <div class="step-guide-overlay" id="charge-step-guide">
+    <div class="step-guide-modal">
+      <div class="step-guide-header">
+        <span class="step-guide-number" id="guide-step-num">1</span>
+        <span class="step-guide-title" id="guide-step-title">Delivery Time Predictions</span>
+      </div>
+      <div class="step-guide-body" id="guide-step-body">
+        Look at the patient cards. Each one shows <strong>ETFD</strong> (Estimated Time to Full Dilation) and <strong>ETD</strong> (Estimated Time of Delivery).
+      </div>
+      <div class="step-guide-action" id="guide-step-action" style="display:none;">
+        <span class="action-icon">👆</span>
+        <span class="action-text" id="guide-action-text">Click on Maria Santos' card</span>
+      </div>
+      <div class="step-guide-footer">
+        <button class="guide-btn secondary" id="guide-prev-btn" onclick="chargeStep(-1)">← Back</button>
+        <span class="guide-progress"><span id="guide-current">1</span> of <span id="guide-total">6</span></span>
+        <button class="guide-btn primary" id="guide-next-btn" onclick="chargeStep(1)">Got it →</button>
+      </div>
     </div>
   </div>
+
 </div>
 
 <!-- Spotlight Overlay - dims background -->
@@ -6213,7 +6399,7 @@
 <div class="demo-page" id="demo-nurse">
   <div class="demo-progress"><div class="demo-progress-bar" id="nurse-progress" style="width:25%"></div></div>
   <div class="demo-top-bar">
-    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Nurse Training — ~3 min</span></div>
+    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Nurse Training — ~5 min</span></div>
     <button class="back-btn" onclick="showLanding()">← Exit Training</button>
   </div>
 
@@ -6258,10 +6444,18 @@
       </div>
     </div>
 
-    <!-- No section tabs for nurse - just a simple patient count bar -->
-    <div class="nurse-patients-bar" id="nurse-patients-bar">
-      <div class="nurse-patient-count"><span class="nurse-count-num">2</span> patients assigned to you</div>
-      <button class="unit-panel-btn" id="nurse-unit-btn" onclick="toggleNurseUnitPanel()">
+    <!-- Section tabs matching clinician style -->
+    <div class="resident-section-tabs" id="nurse-section-tabs">
+      <button class="resident-section-tab active" id="nurse-tab-mypatients" data-section="mypatients" onclick="switchNurseSection('mypatients')">My Patients <span class="tab-count">2</span></button>
+      <div class="tab-divider"></div>
+      <button class="resident-section-tab" id="nurse-tab-north" data-section="north" onclick="switchNurseSection('north')">L&D North <span class="tab-count">13</span></button>
+      <button class="resident-section-tab" id="nurse-tab-south" data-section="south" onclick="switchNurseSection('south')">L&D South <span class="tab-count">9</span></button>
+      <button class="resident-section-tab" id="nurse-tab-triage" data-section="triage" onclick="switchNurseSection('triage')">Triage <span class="tab-count">4</span></button>
+      <button class="resident-section-tab" id="nurse-tab-antepartum" data-section="antepartum" onclick="switchNurseSection('antepartum')">Antepartum <span class="tab-count">2</span></button>
+      <button class="resident-section-tab" id="nurse-tab-or" data-section="or" onclick="switchNurseSection('or')">OR/Recovery <span class="tab-count">6</span></button>
+      <button class="resident-section-tab" id="nurse-tab-all" data-section="all" onclick="switchNurseSection('all')">All L&D <span class="tab-count">32</span></button>
+      <button class="resident-section-tab" id="nurse-tab-postpartum" data-section="postpartum" onclick="switchNurseSection('postpartum')">Postpartum <span class="tab-count">10</span></button>
+      <button class="unit-panel-btn" id="nurse-unit-btn" onclick="toggleNurseUnitPanel()" style="margin-left: auto;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
         View Unit
       </button>
@@ -6422,6 +6616,19 @@
           <button class="npc-handoff-btn" id="nurse-handoff-btn-2" onclick="event.stopPropagation(); openNurseHandoff('susan')">Nursing Handoff</button>
         </div>
       </div>
+    </div>
+
+    <!-- Nurse Section View - Shows when viewing L&D North, South, etc. -->
+    <div id="nurse-section-view-wrapper" style="display: none;">
+      <div class="section-header" id="nurse-section-header">
+        <div><span class="section-name">Triage</span><span class="section-count">2 patients</span></div>
+        <div class="section-staffing" id="nurse-section-staffing">
+          <span class="staffing-label">Triage Nurses</span>
+          <span class="staffing-box this-shift"><span class="staffing-value">2</span> <span class="staffing-desc">This Shift</span></span>
+          <span class="staffing-box next-shift"><span class="staffing-value">0</span> <span class="staffing-desc">Next Shift</span></span>
+        </div>
+      </div>
+      <div class="cards-grid" id="nurse-section-view"></div>
     </div>
   </div>
 
@@ -7460,7 +7667,7 @@
 <div class="demo-page" id="demo-clinician">
   <div class="demo-progress"><div class="demo-progress-bar" id="clinician-progress" style="width:25%"></div></div>
   <div class="demo-top-bar">
-    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Clinician Training — ~8 min</span></div>
+    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Clinician Training — ~5 min</span></div>
     <button class="back-btn" onclick="showLanding()">← Exit Training</button>
   </div>
 
@@ -9513,107 +9720,6 @@
     </div>
   </div>
 
-  <!-- Epic Integration Modal -->
-  <div class="epic-integration-overlay" id="epicIntegrationOverlay">
-    <div class="epic-integration-modal" onclick="event.stopPropagation()">
-      <div class="epic-integration-header">
-        <div class="epic-header-left">
-          <div class="epic-logo"><img src="Epic-Logo.png" alt="Epic"></div>
-          <span class="epic-preview-title">Seamless Integration</span>
-        </div>
-        <div class="epic-header-right">
-          <span class="epic-ready-badge"><span class="checkmark">✓</span> CONNECTED</span>
-        </div>
-      </div>
-      <div class="epic-integration-body">
-        <div class="epic-integration-intro">
-          <p><strong>Birth Model works seamlessly inside Epic.</strong> Your predictions and notes sync automatically — no extra clicks, no switching apps.</p>
-        </div>
-
-        <!-- Grease Board Section -->
-        <div class="epic-integration-section">
-          <div class="epic-section-title">
-            <span class="epic-section-icon">📋</span>
-            L&D Grease Board
-          </div>
-          <div class="epic-greaseboard-mockup">
-            <div class="greaseboard-header">
-              <div class="gb-col">Room</div>
-              <div class="gb-col gb-etfd">ETFD</div>
-              <div class="gb-col gb-etd">ETD</div>
-              <div class="gb-col gb-patient">Patient</div>
-              <div class="gb-col">Provider</div>
-            </div>
-            <div class="greaseboard-row">
-              <div class="gb-col">L&D 12</div>
-              <div class="gb-col gb-etfd"><a href="#" class="gb-link">2:15 PM</a></div>
-              <div class="gb-col gb-etd"><a href="#" class="gb-link">3:27 PM</a></div>
-              <div class="gb-col gb-patient">Santos, Maria</div>
-              <div class="gb-col">Dr. Watters</div>
-            </div>
-            <div class="greaseboard-row">
-              <div class="gb-col">L&D 08</div>
-              <div class="gb-col gb-etfd"><a href="#" class="gb-link">1:45 PM</a></div>
-              <div class="gb-col gb-etd"><a href="#" class="gb-link">3:15 PM</a></div>
-              <div class="gb-col gb-patient">Johnson, Samantha</div>
-              <div class="gb-col">Dr. Kim</div>
-            </div>
-            <div class="greaseboard-row">
-              <div class="gb-col">L&D 05</div>
-              <div class="gb-col gb-etfd"><a href="#" class="gb-link">11:05 AM</a></div>
-              <div class="gb-col gb-etd"><a href="#" class="gb-link">12:30 PM</a></div>
-              <div class="gb-col gb-patient">Chen, Amanda</div>
-              <div class="gb-col">Dr. Torres</div>
-            </div>
-          </div>
-          <p class="epic-section-note"><strong>ETFD & ETD</strong> are written directly to the Grease Board. <strong>Click any time</strong> to open Birth Model.</p>
-        </div>
-
-        <!-- More Activities Section -->
-        <div class="epic-integration-section">
-          <div class="epic-section-title">
-            <span class="epic-section-icon">🖱️</span>
-            More Activities Menu <span style="font-size:11px;font-weight:400;color:#64748b;margin-left:6px;">(click any button below)</span>
-          </div>
-          <div class="epic-activities-mockup">
-            <div class="activities-header">
-              <span>Patient Chart</span>
-              <span class="activities-arrow">›</span>
-              <span class="activities-highlight">More Activities</span>
-            </div>
-            <div class="activities-dropdown">
-              <div class="activity-item active">
-                <span class="activity-icon">🏥</span>
-                <span>Birth Model Home</span>
-              </div>
-              <div class="activity-item active">
-                <span class="activity-icon">📋</span>
-                <span>Birth Model Delivery Note</span>
-              </div>
-              <div class="activity-item">
-                <span class="activity-icon">👩‍⚕️</span>
-                <span>Birth Model Nursing Handoff</span>
-              </div>
-              <div class="activity-item">
-                <span class="activity-icon">👁️</span>
-                <span>Birth Model View Patient</span>
-              </div>
-            </div>
-          </div>
-          <p class="epic-section-note"><strong>One click</strong> from any patient chart opens Birth Model directly.</p>
-        </div>
-
-        <div class="epic-integration-footer-text">
-          <span class="integration-badge">⚡ Bidirectional</span>
-          Birth Model + Epic = One Complete Platform
-        </div>
-      </div>
-      <div class="epic-integration-footer">
-        <button class="epic-integration-btn" onclick="closeEpicIntegrationAndContinue()">Continue →</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Settings Modal -->
   <div class="settings-overlay" id="clinicianSettingsOverlay" onclick="closeClinicianSettings()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;justify-content:center;align-items:center;">
     <div class="settings-modal" onclick="event.stopPropagation()" style="background:white;border-radius:12px;width:90%;max-width:900px;max-height:90vh;overflow:hidden;display:flex;flex-direction:column;">
@@ -9755,11 +9861,112 @@
 
 </div>
 
+<!-- Epic Integration Modal (shared across all tours) -->
+<div class="epic-integration-overlay" id="epicIntegrationOverlay">
+  <div class="epic-integration-modal" onclick="event.stopPropagation()">
+    <div class="epic-integration-header">
+      <div class="epic-header-left">
+        <div class="epic-logo"><img src="Epic-Logo.png" alt="Epic"></div>
+        <span class="epic-preview-title">Seamless Integration</span>
+      </div>
+      <div class="epic-header-right">
+        <span class="epic-ready-badge"><span class="checkmark">✓</span> CONNECTED</span>
+      </div>
+    </div>
+    <div class="epic-integration-body" id="epicIntegrationBody">
+      <div class="epic-integration-intro">
+        <p><strong>Birth Model works seamlessly inside Epic.</strong> Your predictions and notes sync automatically — no extra clicks, no switching apps.</p>
+      </div>
+
+      <!-- Grease Board Section -->
+      <div class="epic-integration-section" id="epicGreaseboardSection">
+        <div class="epic-section-title">
+          <span class="epic-section-icon">📋</span>
+          L&D Grease Board
+        </div>
+        <div class="epic-greaseboard-mockup">
+          <div class="greaseboard-header">
+            <div class="gb-col">Room</div>
+            <div class="gb-col gb-etfd">ETFD</div>
+            <div class="gb-col gb-etd">ETD</div>
+            <div class="gb-col gb-patient">Patient</div>
+            <div class="gb-col">Provider</div>
+          </div>
+          <div class="greaseboard-row">
+            <div class="gb-col">L&D 12</div>
+            <div class="gb-col gb-etfd"><a href="#" class="gb-link">2:15 PM</a></div>
+            <div class="gb-col gb-etd"><a href="#" class="gb-link">3:27 PM</a></div>
+            <div class="gb-col gb-patient">Santos, Maria</div>
+            <div class="gb-col">Dr. Watters</div>
+          </div>
+          <div class="greaseboard-row">
+            <div class="gb-col">L&D 08</div>
+            <div class="gb-col gb-etfd"><a href="#" class="gb-link">1:45 PM</a></div>
+            <div class="gb-col gb-etd"><a href="#" class="gb-link">3:15 PM</a></div>
+            <div class="gb-col gb-patient">Johnson, Samantha</div>
+            <div class="gb-col">Dr. Kim</div>
+          </div>
+          <div class="greaseboard-row">
+            <div class="gb-col">L&D 05</div>
+            <div class="gb-col gb-etfd"><a href="#" class="gb-link">11:05 AM</a></div>
+            <div class="gb-col gb-etd"><a href="#" class="gb-link">12:30 PM</a></div>
+            <div class="gb-col gb-patient">Chen, Amanda</div>
+            <div class="gb-col">Dr. Torres</div>
+          </div>
+        </div>
+        <p class="epic-section-note"><strong>ETFD & ETD</strong> are written directly to the Grease Board. <strong>Click any time</strong> to open Birth Model.</p>
+      </div>
+
+      <!-- More Activities Section -->
+      <div class="epic-integration-section" id="epicActivitiesSection">
+        <div class="epic-section-title">
+          <span class="epic-section-icon">🖱️</span>
+          More Activities Menu <span style="font-size:11px;font-weight:400;color:#64748b;margin-left:6px;">(click any button below)</span>
+        </div>
+        <div class="epic-activities-mockup">
+          <div class="activities-header">
+            <span>Patient Chart</span>
+            <span class="activities-arrow">›</span>
+            <span class="activities-highlight">More Activities</span>
+          </div>
+          <div class="activities-dropdown" id="epicActivitiesDropdown">
+            <div class="activity-item" id="epicActivityHome">
+              <span class="activity-icon">🏥</span>
+              <span>Birth Model Home</span>
+            </div>
+            <div class="activity-item" id="epicActivityDeliveryNote">
+              <span class="activity-icon">📋</span>
+              <span>Birth Model Delivery Note</span>
+            </div>
+            <div class="activity-item" id="epicActivityHandoff">
+              <span class="activity-icon">👩‍⚕️</span>
+              <span>Birth Model Nursing Handoff</span>
+            </div>
+            <div class="activity-item" id="epicActivityViewPatient">
+              <span class="activity-icon">👁️</span>
+              <span>Birth Model View Patient</span>
+            </div>
+          </div>
+        </div>
+        <p class="epic-section-note"><strong>One click</strong> from any patient chart opens Birth Model directly.</p>
+      </div>
+
+      <div class="epic-integration-footer-text">
+        <span class="integration-badge">⚡ Bidirectional</span>
+        Birth Model + Epic = One Complete Platform
+      </div>
+    </div>
+    <div class="epic-integration-footer">
+      <button class="epic-integration-btn" onclick="closeEpicIntegrationAndContinue()">Continue →</button>
+    </div>
+  </div>
+</div>
+
 <!-- RESIDENT DEMO -->
 <div class="demo-page" id="demo-resident">
   <div class="demo-progress"><div class="demo-progress-bar" id="resident-progress" style="width:20%"></div></div>
   <div class="demo-top-bar">
-    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Resident Training — ~3 min</span></div>
+    <div class="demo-top-left"><img src="images/Birth_Model_Logo.png" alt="Birth Model" class="demo-logo"><span class="demo-top-title">Resident Training — ~4 min</span></div>
     <button class="back-btn" onclick="showLanding()">← Exit Training</button>
   </div>
 
@@ -11729,7 +11936,7 @@
   </div>
 
   <div class="demo-controls" style="display:none;">
-    <div class="training-title"><span class="title-text">Resident Training</span><span class="time-badge">~3 min</span></div>
+    <div class="training-title"><span class="title-text">Resident Training</span><span class="time-badge">~4 min</span></div>
     <button class="demo-btn secondary" onclick="residentStep(-1)">← Previous</button>
     <span class="step-indicator">Step <span id="resident-step-num">1</span> of <span id="resident-total-steps">37</span></span>
     <button class="demo-btn primary" onclick="residentStep(1)">Next →</button>
@@ -13836,8 +14043,8 @@
 
     // Allow all actions in explore mode
     if (!window.exploreMode) {
-      // Prevent opening drawer on step 1 (Training Overview) or step 2 (info-only step about predictions)
-      if (typeof chargeStep_ !== 'undefined' && (chargeStep_ === 1 || chargeStep_ === 2)) {
+      // Prevent opening drawer on step 1 (Training Overview), step 2 (Epic Integration), or step 3 (ETFD/ETD info)
+      if (typeof chargeStep_ !== 'undefined' && (chargeStep_ === 1 || chargeStep_ === 2 || chargeStep_ === 3)) {
         // Show the guide modal
         document.getElementById('charge-step-guide').classList.add('active');
         return;
@@ -13862,14 +14069,15 @@
     document.getElementById('drawerOverlay').classList.add('open');
     // Reposition step callout to left side when drawer is open
     repositionStepCallout('left', 'charge');
-    // Add pointer arrow - for step 5 point to close button, otherwise to handoff button
+    // Add pointer arrow based on current step
     if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 5) {
-      setTimeout(() => addPointerArrow('drawer-close-btn'), 350);
-    } else {
+      // Step 5 is "View Nursing Handoff" - point to handoff button
       setTimeout(() => addPointerArrow('charge-handoff-btn'), 350);
     }
-    // Check if we're on charge demo step 3 (open patient card)
-    if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 3) {
+    // Note: Step 6 pointer arrow is handled by closeUniversalHandoff() after user closes the handoff
+    // Check if we're on charge demo step 4 (open patient card)
+    // (Step 4 is "Open Patient Details" - user clicked card to open drawer)
+    if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 4) {
       hideSpotlight();
       document.querySelectorAll('.guide-highlight').forEach(el => el.classList.remove('guide-highlight'));
       chargeActionCompleted = true;
@@ -13990,11 +14198,6 @@
     if (handoffBtn) handoffBtn.classList.remove('action-highlight');
     const drawerCloseBtn = document.getElementById('drawer-close-btn');
     if (drawerCloseBtn) drawerCloseBtn.classList.remove('action-highlight');
-    // Check if we're on charge demo step 5 (close drawer)
-    if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 5) {
-      drawerClosed = true;
-      checkBothClosed();
-    }
   }
 
   // Add animated pointer arrow to a target element
@@ -14903,7 +15106,21 @@
     }
     hideSpotlight();
 
-    // Check for tour action completion
+    // Check for nurse tour step 25 (Close the Handoff)
+    if (typeof nurseStep_ !== 'undefined' && nurseStep_ === 25) {
+      nurseActionCompleted = true;
+      // Remove the handoff close arrow
+      const arrow = document.getElementById('handoff-close-arrow');
+      if (arrow) arrow.remove();
+      removePointerArrow(); // Also clean up any other arrows
+      // Keep Nursing Handoff buttons hidden for step 26 (View Unit)
+      // They will be restored when leaving step 26 or at tour completion
+      // Auto-advance to next step after brief delay
+      setTimeout(() => nurseStep(1), 400);
+      return; // Don't proceed with other tour checks
+    }
+
+    // Check for clinician tour action completion
     if (typeof clinicianSteps !== 'undefined' && typeof clinicianStep_ !== 'undefined') {
       const currentStep = clinicianSteps[clinicianStep_ - 1];
       if (currentStep && currentStep.actionType === 'closeClinicianHandoff') {
@@ -14989,8 +15206,9 @@ ${content.innerHTML}
 
     // Reposition step callout to bottom when modal is open
     repositionStepCallout('bottom', 'charge');
-    // Check if we're on charge demo step 4 (view handoff)
-    if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 4) {
+    // Check if we're on charge demo step 5 (view handoff)
+    // (Step 5 is "View Nursing Handoff" - user clicked handoff button)
+    if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 5) {
       hideSpotlight();
       document.querySelectorAll('.guide-highlight').forEach(el => el.classList.remove('guide-highlight'));
       // Remove the pointer arrow - user has completed the action, no need to point to handoff button anymore
@@ -15001,8 +15219,7 @@ ${content.innerHTML}
     }
   }
   function closeHandoff() {
-    document.getElementById('handoffModal')?.classList.remove('open');
-    closeUniversalHandoff(); // Also close universal modal
+    closeUniversalHandoff(); // Close universal handoff modal
     // Reposition back to left (drawer still open) or top
     const drawer = document.getElementById('drawerOverlay');
     if (drawer && drawer.classList.contains('open')) {
@@ -15010,50 +15227,14 @@ ${content.innerHTML}
     } else {
       repositionStepCallout('top', 'charge');
     }
-    // Remove highlight from handoff close button
-    const handoffCloseBtn = document.getElementById('handoff-close-btn');
+    // Remove highlight from handoff close button (universal handoff)
+    const handoffCloseBtn = document.getElementById('universal-handoff-close-btn');
     if (handoffCloseBtn) handoffCloseBtn.classList.remove('action-highlight');
 
-    // If on step 5, track and show hint to close drawer
-    if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 5) {
-      handoffClosed = true;
-      if (drawer && drawer.classList.contains('open')) {
-        // Remove handoff close button highlight
-        const handoffCloseBtn = document.getElementById('handoff-close-btn');
-        if (handoffCloseBtn) handoffCloseBtn.classList.remove('guide-highlight');
-
-        // Highlight the drawer close button
-        const drawerCloseBtn = document.getElementById('drawer-close-btn');
-        if (drawerCloseBtn) {
-          drawerCloseBtn.classList.add('guide-highlight');
-          drawerCloseBtn.classList.add('action-highlight');
-          // Update spotlight tooltip to point to drawer close button
-          showSpotlightTooltip(drawerCloseBtn, '<strong>Click ×</strong> to close the patient drawer.', true);
-        }
-        // Add pointer arrow to drawer close button
-        addPointerArrow('drawer-close-btn');
-      } else {
-        // Both already closed
-        checkBothClosed();
-      }
-    }
   }
 
   function checkBothClosed() {
-    if (typeof chargeStep_ !== 'undefined' && chargeStep_ === 5) {
-      const handoffOpen = document.getElementById('handoffModal').classList.contains('open');
-      const drawerOpen = document.getElementById('drawerOverlay').classList.contains('open');
-      if (!handoffOpen && !drawerOpen) {
-        hideSpotlight();
-        document.querySelectorAll('.guide-highlight').forEach(el => el.classList.remove('guide-highlight'));
-        chargeActionCompleted = true;
-        // Reset for next time
-        handoffClosed = false;
-        drawerClosed = false;
-        // Auto-advance to next step after brief delay
-        setTimeout(() => chargeStep(1), 400);
-      }
-    }
+    // Previously used for step 6 "Return to Board" - no longer needed
   }
   function toggleLegend() { document.getElementById('statusLegend').classList.toggle('collapsed'); }
   function toggleResidentLegend() { document.getElementById('residentStatusLegend').classList.toggle('collapsed'); }
@@ -15497,20 +15678,64 @@ ${content.innerHTML}
   let currentSection = 'all';
   let tabSwitchCount = 0;
   let visitedSections = new Set();
-  const sectionOrder = ['south', 'north', 'triage', 'antepartum', 'or'];
+  // Tab order: All, L&D North, L&D South, Triage, Antepartum, OR/Recovery
+  const sectionOrder = ['north', 'south', 'triage', 'antepartum', 'or'];
   const sectionNames = {
-    'south': 'L&D South',
     'north': 'L&D North',
+    'south': 'L&D South',
     'triage': 'Triage',
     'antepartum': 'Antepartum',
     'or': 'OR/Recovery'
   };
 
-  // Tab switching with REAL changes
-  function switchTab(btn, tab) {
+  // Wrapper for new pill-style tabs
+  // Comprehensive charge section switching
+  function switchChargeSection(section) {
     // Update active tab styling
-    document.querySelectorAll('#demo-charge .section-tab').forEach(t => t.classList.remove('active'));
-    btn.classList.add('active');
+    document.querySelectorAll('#charge-section-tabs .resident-section-tab').forEach(t => t.classList.remove('active'));
+    const tabBtn = document.getElementById('charge-tab-' + section);
+    if (tabBtn) tabBtn.classList.add('active');
+
+    const myPatientsView = document.getElementById('charge-mypatients-view');
+    const sectionHeader = document.getElementById('charge-section-header');
+    const chargeCards = document.getElementById('charge-cards');
+    const staffingBox = document.getElementById('charge-staffing');
+
+    if (section === 'mypatients') {
+      // Show My Patients view (large nurse-style cards)
+      if (myPatientsView) myPatientsView.style.display = '';
+      if (sectionHeader) sectionHeader.style.display = 'none';
+      if (chargeCards) chargeCards.style.display = 'none';
+      // Update staffing label
+      if (staffingBox) {
+        const label = staffingBox.querySelector('.staffing-label');
+        if (label) label.textContent = 'My Patients';
+        const thisShift = staffingBox.querySelector('.staffing-box.this-shift .staffing-value');
+        const nextShift = staffingBox.querySelector('.staffing-box.next-shift .staffing-value');
+        if (thisShift) thisShift.textContent = '2';
+        if (nextShift) nextShift.textContent = '0';
+      }
+    } else {
+      // Show section view (pt-card style)
+      if (myPatientsView) myPatientsView.style.display = 'none';
+      if (sectionHeader) sectionHeader.style.display = '';
+      if (chargeCards) chargeCards.style.display = '';
+      // Use existing switchTabLogic for section data
+      switchTabLogic(section);
+    }
+  }
+
+  // Legacy function for backward compatibility
+  function switchChargeTab(btn, tab) {
+    switchChargeSection(tab);
+  }
+
+  // Tab switching with REAL changes (legacy - also called by switchChargeTab)
+  function switchTab(btn, tab) {
+    switchChargeSection(tab);
+  }
+
+  function switchTabLogic(tab) {
 
     const section = sectionData[tab];
     if (!section) return;
@@ -15563,6 +15788,7 @@ ${content.innerHTML}
     }
 
     // Track action completion for Step 7 (switching tabs)
+    // (Step 7 is "Explore All Sections")
     if (chargeStep_ === 7) {
       updateSectionTourTooltip();
     }
@@ -15591,13 +15817,13 @@ ${content.innerHTML}
       }
 
       // Remove all highlights first
-      document.querySelectorAll('#demo-charge .section-tab').forEach(el => {
+      document.querySelectorAll('#charge-section-tabs .resident-section-tab').forEach(el => {
         el.classList.remove('guide-highlight');
       });
 
       // Highlight only the next tab to click
       // Use exact match with quotes to avoid partial matches (e.g., 'or' matching 'north')
-      const nextTabBtn = document.querySelector(`#demo-charge .section-tab[onclick*="'${nextSection}'"]`);
+      const nextTabBtn = document.getElementById(`charge-tab-${nextSection}`);
       if (nextTabBtn) {
         nextTabBtn.classList.add('guide-highlight');
         // Reposition tooltip to point at the next tab - no dim overlay so user can see cards
@@ -15655,7 +15881,8 @@ ${content.innerHTML}
     // Show feedback
     showChangeIndicator(`Ratio changed from ${oldRatio} to ${newRatio}`);
 
-    // Track action for step 6
+    // Track action for step 6 (ratio toggle)
+    // (Step 6 is "Nursing Ratios")
     if (chargeStep_ === 6 && !chargeActionCompleted) {
       hideSpotlight();
       document.querySelectorAll('.guide-highlight').forEach(el => el.classList.remove('guide-highlight'));
@@ -15716,8 +15943,8 @@ ${content.innerHTML}
   const chargeSteps = [
     {
       num: 1,
-      title: "Training Overview",
-      body: "Welcome to the <strong>Charge Nurse</strong> training!<br><br>In this tour, you'll learn how to:<br><br>• Understand ETFD & ETD predictions for staffing<br>• Access patient details and nursing handoffs<br>• Manage nurse-to-patient ratios<br>• Navigate between unit sections",
+      title: "Why Birth Model?",
+      body: "<strong>Staffing L&D shouldn't be guesswork.</strong><br><br>Right now, you're constantly reacting — juggling rooms, estimating when deliveries will happen, and hoping you have enough nurses. It's stressful and things slip through the cracks.<br><br>Birth Model gives you <strong>real-time delivery predictions</strong> and <strong>automatic ratio calculations</strong> so you can staff proactively, not reactively.",
       requiresAction: false,
       isOverview: true
     },
@@ -15732,7 +15959,7 @@ ${content.innerHTML}
     {
       num: 3,
       title: "Understanding ETFD & ETD",
-      body: "Look at the <strong>patient cards</strong>. Each shows two key predictions:<br><br>• <strong>ETFD</strong> = Estimated Time to Full Dilation<br>• <strong>ETD</strong> = Estimated Time of Delivery<br><br>These help you plan staffing and anticipate deliveries.",
+      body: "Look at the <strong>patient cards</strong>. Each shows two key predictions:<br><br>• <strong>ETFD</strong> = Estimated Time to Full Dilation<br>• <strong>ETD</strong> = Estimated Time of Delivery<br><br><strong>Why it matters:</strong> Know when to call in staff before deliveries cluster.",
       targetElement: "card-maria",
       pointerTarget: "maria-etfd-label",
       requiresAction: false,
@@ -15742,7 +15969,7 @@ ${content.innerHTML}
     {
       num: 4,
       title: "Open Patient Details",
-      body: "Click on any <strong>patient card</strong> to see complete details including labs, vitals, cervical history, and the nursing handoff button.",
+      body: "Click on any <strong>patient card</strong> to see complete details including labs, vitals, cervical history, and the nursing handoff button.<br><br><strong>Why it matters:</strong> All clinical info in one place — no more hunting through Epic.",
       targetElement: "card-maria",
       spotlightText: "Now <strong>click this card</strong> to open Maria's full details.",
       requiresAction: true,
@@ -15752,7 +15979,7 @@ ${content.innerHTML}
     {
       num: 5,
       title: "View Nursing Handoff",
-      body: "The <strong>Nursing Handoff</strong> report contains everything needed for shift change: allergies, GBS status, medications, and PPH risk assessment.<br><br>Click the button to see a complete handoff report.",
+      body: "The <strong>Nursing Handoff</strong> report contains everything needed for shift change: allergies, GBS status, medications, and PPH risk assessment.<br><br><strong>Why it matters:</strong> Faster, safer shift handoffs with nothing missed.",
       targetElement: "charge-handoff-btn",
       spotlightText: "<strong>Click this button</strong> to see the complete nursing handoff report.",
       requiresAction: true,
@@ -15761,33 +15988,32 @@ ${content.innerHTML}
     },
     {
       num: 6,
-      title: "Return to Board",
-      body: "Close the handoff modal by clicking <strong>Close</strong>, then close the patient drawer by clicking the <strong>×</strong> button.",
-      targetElement: "handoff-close-btn",
-      spotlightText: "<strong>Click Close</strong> to exit the handoff.",
+      title: "Close the Handoff",
+      body: "When you're done reviewing, click <strong>Close</strong> to exit the handoff report.<br><br><strong>Why it matters:</strong> Quick in, quick out — get the info you need and move on.",
+      targetElement: "universal-handoff-close-btn",
+      spotlightText: "<strong>Click Close</strong> to exit the handoff report.",
       requiresAction: true,
-      actionType: "closeAll",
-      highlightCloseButtons: true,
-      ensureHandoffOpen: true
+      actionType: "closeHandoff",
+      showHandoffOnLoad: true,
+      highlightHandoffClose: true
     },
     {
       num: 7,
       title: "Nursing Ratios",
-      body: "Birth Model <strong>automatically calculates ratios</strong> based on patient acuity:<br><br>• <strong style='color:#dc2626'>Red 1:1</strong> = High acuity (MgSO4, pushing, etc.)<br>• <strong style='color:#6b7280'>Gray 1:2</strong> = Stable, can pair<br><br><strong>One-click changes</strong> — any charge nurse can adjust a ratio, and all charge nurses see the update instantly. The <strong>total nurses needed</strong> (top right) updates automatically.",
+      body: "Birth Model <strong>automatically calculates ratios</strong> based on patient acuity:<br><br>• <strong style='color:#dc2626'>Red 1:1</strong> = High acuity (MgSO4, pushing, etc.)<br>• <strong style='color:#6b7280'>Gray 1:2</strong> = Stable, can pair<br><br><strong>Why it matters:</strong> Real-time staffing math — no more manual counting.",
       targetElement: "charge-ratio-maria",
       spotlightText: "<strong>Click any ratio badge</strong> to toggle between 1:1 and 1:2. All charge nurses see changes instantly!",
       requiresAction: true,
       actionType: "changeRatio",
       highlightRatio: true,
-      resetToAll: true,
-      closeDrawerFirst: true
+      resetToAll: true
     },
     {
       num: 8,
       title: "Explore All Sections",
-      body: "As Charge Nurse, you need visibility across the entire unit. Let's visit each section to see patients and staffing in different areas.",
+      body: "As Charge Nurse, you need visibility across the entire unit. Let's visit each section to see patients and staffing in different areas.<br><br><strong>Why it matters:</strong> See the whole floor at a glance — anticipate bottlenecks before they happen.",
       targetElement: null,
-      spotlightText: "Let's click on <strong>L&D South</strong> next!",
+      spotlightText: "Let's click on <strong>L&D North</strong> next!",
       spotlightPosition: "tabs",
       requiresAction: true,
       actionType: "switchTabs",
@@ -15871,13 +16097,16 @@ ${content.innerHTML}
   }
 
   function updateChargeStep() {
+    console.log('updateChargeStep called, chargeStep_=' + chargeStep_);
     const step = chargeSteps[chargeStep_ - 1];
+    console.log('step.num=' + step.num + ', title=' + step.title + ', showEpicIntegrationModal=' + step.showEpicIntegrationModal);
     chargeActionCompleted = false;
     tabSwitchCount = 0;
     visitedSections = new Set(); // Reset visited sections for step 7
 
     // Handle Epic Integration modal step
     if (step.showEpicIntegrationModal) {
+      console.log('Showing Epic Integration modal for charge tour');
       // Hide the step guide for this step
       document.getElementById('charge-step-guide').classList.remove('active');
       showEpicIntegrationModal();
@@ -15929,13 +16158,14 @@ ${content.innerHTML}
       resetToAll();
     }
 
-    // Close drawer if needed (e.g., step 5 needs board view)
+    // Close drawer if needed (e.g., step 7 needs board view)
     if (step.closeDrawerFirst) {
       const drawer = document.getElementById('drawerOverlay');
       if (drawer && drawer.classList.contains('open')) {
         drawer.classList.remove('open');
       }
-      const handoff = document.getElementById('handoffModal');
+      // Close universal handoff modal
+      const handoff = document.getElementById('universalHandoffModal');
       if (handoff && handoff.classList.contains('open')) {
         handoff.classList.remove('open');
       }
@@ -15951,16 +16181,30 @@ ${content.innerHTML}
       }
     }
 
-    // Ensure handoff is open if needed (e.g., step 5 needs user to close it)
+    // Ensure handoff is open if needed (e.g., step 6 needs user to close it)
     if (step.ensureHandoffOpen) {
       const drawer = document.getElementById('drawerOverlay');
-      const handoff = document.getElementById('handoffModal');
       if (drawer && !drawer.classList.contains('open')) {
         drawer.classList.add('open');
       }
-      if (handoff && !handoff.classList.contains('open')) {
-        handoff.classList.add('open');
+      // Open the universal handoff modal (openHandoff uses universal system)
+      const universalHandoff = document.getElementById('universalHandoffModal');
+      if (!universalHandoff || !universalHandoff.classList.contains('open')) {
+        // Universal handoff doesn't exist or isn't open - create/open it
+        openUniversalHandoff('maria', chargePatientData);
       }
+    }
+
+    // Highlight handoff Close button immediately when step 6 loads
+    if (step.highlightHandoffClose) {
+      setTimeout(() => {
+        const closeBtn = document.getElementById('universal-handoff-close-btn');
+        if (closeBtn) {
+          closeBtn.classList.add('guide-highlight');
+          // Add pointer arrow pointing down at Close button
+          addPointerArrow('universal-handoff-close-btn', true);
+        }
+      }, 400); // Delay to ensure modal is fully rendered
     }
 
     // For non-action steps, show highlights immediately while modal is visible
@@ -15997,6 +16241,7 @@ ${content.innerHTML}
 
     // Show the guide modal
     document.getElementById('charge-step-guide').classList.add('active');
+    console.log('Charge step guide activated for step ' + step.num);
 
     // Step 3: Grey overlay on everything, but Maria's card visible above it (no arrow, but keep ETFD/ETD highlights)
     // (was step 2 before Epic Integration added)
@@ -16043,7 +16288,8 @@ ${content.innerHTML}
       if (drawer && drawer.classList.contains('open')) {
         drawer.classList.remove('open');
       }
-      const handoff = document.getElementById('handoffModal');
+      // Close universal handoff modal
+      const handoff = document.getElementById('universalHandoffModal');
       if (handoff && handoff.classList.contains('open')) {
         handoff.classList.remove('open');
       }
@@ -16059,15 +16305,16 @@ ${content.innerHTML}
       }
     }
 
-    // Ensure handoff is open if needed (e.g., step 5 - user needs to close it)
+    // Ensure handoff is open if needed (e.g., step 6 - user needs to close it)
     if (step.ensureHandoffOpen) {
       const drawer = document.getElementById('drawerOverlay');
-      const handoff = document.getElementById('handoffModal');
       if (drawer && !drawer.classList.contains('open')) {
         drawer.classList.add('open');
       }
-      if (handoff && !handoff.classList.contains('open')) {
-        handoff.classList.add('open');
+      // Open universal handoff modal if not already open
+      const handoff = document.getElementById('universalHandoffModal');
+      if (!handoff || !handoff.classList.contains('open')) {
+        openUniversalHandoff('maria', chargePatientData);
       }
       // Remove the pointer arrow - we don't want it pointing to "View Nursing Handoff"
       removePointerArrow();
@@ -16093,15 +16340,15 @@ ${content.innerHTML}
 
     // Highlight tabs if needed
     if (step.highlightTabs) {
-      document.querySelectorAll('#demo-charge .section-tab:not(.active)').forEach(el => {
+      document.querySelectorAll('#charge-section-tabs .resident-section-tab:not(.active)').forEach(el => {
         el.classList.add('guide-highlight');
         if (!highlightedEl) highlightedEl = el;
       });
     }
 
-    // Highlight only the first tab (L&D South) for step 6
+    // Highlight only the first non-active tab (L&D North) for step 8
     if (step.highlightFirstTab) {
-      const firstTab = document.querySelector('#demo-charge .section-tab[onclick*="south"]');
+      const firstTab = document.getElementById('charge-tab-north');
       if (firstTab) {
         firstTab.classList.add('guide-highlight');
         highlightedEl = firstTab;
@@ -16118,10 +16365,12 @@ ${content.innerHTML}
 
     // Highlight close buttons if needed (only handoff Close, not drawer ×)
     if (step.highlightCloseButtons) {
-      const handoffCloseBtn = document.getElementById('handoff-close-btn');
+      const handoffCloseBtn = document.getElementById('universal-handoff-close-btn');
       if (handoffCloseBtn) {
         handoffCloseBtn.classList.add('guide-highlight');
         if (!highlightedEl) highlightedEl = handoffCloseBtn;
+        // Add pointer arrow to handoff Close button
+        setTimeout(() => addPointerArrow('universal-handoff-close-btn', true), 200);
       }
       // Don't highlight drawer × button initially - only after handoff is closed
     }
@@ -16182,11 +16431,8 @@ ${content.innerHTML}
       tooltip.classList.remove('teal-theme');
       if (isDeliveryNoteSendBtn) {
         spotlightContent.classList.add('sign-send-highlight');
-      } else if (isEpicSendBtn) {
-        // Use teal theme for Epic Send buttons to match step guide
-        spotlightContent.classList.add('teal-theme');
-        tooltip.classList.add('teal-theme');
       }
+      // Epic Send button uses default grey theme like other tooltips
     }
 
     // Show the overlay (unless noDimOverlay is true)
@@ -16226,22 +16472,18 @@ ${content.innerHTML}
 
     // Determine positioning strategy
     const targetId = targetEl.id || '';
-    const isChargeHandoffClose = targetId === 'handoff-close-btn';
+    const isChargeHandoffClose = targetId === 'universal-handoff-close-btn';
     const isNurseHandoffClose = targetId === 'nurse-handoff-close';
     const isClinicianDrawerClose = targetId === 'clin-drawer-close-btn';
     const isPlacentaAppearance = targetId === 'dn-field-appearance';
     // Note: isEpicSendBtn already declared above for theme styling
 
     if (isEpicSendBtn) {
-      // Epic Send button: position tooltip below with extra offset
-      top = rect.bottom + gap + 17;
-      if (isOnRightHalf) {
-        left = targetCenterX - tooltipWidth + arrowOffset + 12;
-        tooltip.classList.add('arrow-top-right');
-      } else {
-        left = targetCenterX - arrowOffset - 12;
-        tooltip.classList.add('arrow-top');
-      }
+      // Epic Send button: position tooltip ABOVE with arrow pointing DOWN at button
+      top = rect.top - tooltipHeight - gap - 10;
+      // Position tooltip to the left with arrow on right side pointing at button
+      left = rect.left - tooltipWidth + rect.width + 20;
+      tooltip.classList.add('arrow-bottom-right');
     } else if (isPlacentaAppearance) {
       // Placenta Appearance field: move tooltip 5px lower
       top = rect.bottom + gap + 5;
@@ -16257,11 +16499,13 @@ ${content.innerHTML}
       top = rect.top + rect.height / 2 - tooltipHeight / 2 + 15;
       left = rect.left - tooltipWidth - gap + 22; // Moved closer to the Close button
       tooltip.classList.add('arrow-right');
+      tooltip.classList.add('above-modal'); // Above handoff modal z-index
     } else if (isNurseHandoffClose) {
       // Nurse: Tooltip further LEFT so it doesn't cover the Close button
       top = rect.top + rect.height / 2 - tooltipHeight / 2 + 15;
       left = rect.left - tooltipWidth - gap - 35; // More to the left
       tooltip.classList.add('arrow-right');
+      tooltip.classList.add('above-modal'); // Above handoff modal z-index
     } else if (isClinicianDrawerClose) {
       // Clinician drawer: Tooltip to the LEFT of the close button, arrow pointing right
       // Move further left so it doesn't cover the close button
@@ -16455,13 +16699,10 @@ ${content.innerHTML}
     const isEpicSendBtn = targetId === 'clinicianEpicSendBtn' || targetId === 'residentEpicSendBtn';
 
     if (isEpicSendBtn) {
-      // Epic Send button: position tooltip below with extra offset
-      top = rect.bottom + gap + 17;
-      if (isOnRightHalf) {
-        left = targetCenterX - tooltipWidth + arrowOffset + 12;
-      } else {
-        left = targetCenterX - arrowOffset - 12;
-      }
+      // Epic Send button: position tooltip ABOVE with arrow pointing DOWN at button
+      top = rect.top - tooltipHeight - gap - 10;
+      // Position tooltip to the left with arrow on right side pointing at button
+      left = rect.left - tooltipWidth + rect.width + 20;
     } else if (isClinicianDrawerClose) {
       // Clinician drawer: Tooltip to the LEFT of the close button, arrow pointing right
       top = rect.top + rect.height / 2 - tooltipHeight / 2 + 10;
@@ -16565,10 +16806,10 @@ ${content.innerHTML}
   let drawerClosed = false;
 
   function resetToAll() {
-    const allTab = document.querySelector('#demo-charge .section-tab[onclick*="all"]');
+    const allTab = document.getElementById('charge-tab-all');
     if (allTab && currentSection !== 'all') {
       // Reset without counting as user action
-      document.querySelectorAll('#demo-charge .section-tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('#charge-section-tabs .resident-section-tab').forEach(t => t.classList.remove('active'));
       allTab.classList.add('active');
 
       const section = sectionData['all'];
@@ -16598,15 +16839,17 @@ ${content.innerHTML}
   }
 
   function chargeStep(d) {
+    console.log('chargeStep called with d=' + d + ', current step=' + chargeStep_);
     const currentStep = chargeSteps[chargeStep_ - 1];
+    console.log('currentStep.num=' + currentStep.num + ', title=' + currentStep.title);
 
     // Hide spotlight if showing
     hideSpotlight();
 
     // When going BACK, close any open drawers/modals and reset UI
     if (d < 0) {
-      // Close handoff modal
-      const handoff = document.getElementById('handoffModal');
+      // Close universal handoff modal
+      const handoff = document.getElementById('universalHandoffModal');
       if (handoff) handoff.classList.remove('open');
 
       // Close drawer
@@ -16620,8 +16863,9 @@ ${content.innerHTML}
       repositionStepCallout('top', 'charge');
     }
 
-    // Reset Step 2 styling (Maria card z-index, ETFD/ETD highlights)
-    if (currentStep.num === 2) {
+    // Reset Step 3 styling (Maria card z-index, ETFD/ETD highlights)
+    // Note: This was step 2 before Epic Integration was added, now it's step 3
+    if (currentStep.num === 3) {
       const mariaCard = document.getElementById('card-maria');
       if (mariaCard) {
         mariaCard.style.position = '';
@@ -16647,6 +16891,7 @@ ${content.innerHTML}
     document.querySelectorAll('.guide-highlight').forEach(el => el.classList.remove('guide-highlight'));
 
     chargeStep_ = Math.max(1, Math.min(chargeSteps.length, chargeStep_ + d));
+    console.log('chargeStep() completed, calling updateChargeStep() with chargeStep_=' + chargeStep_);
     updateChargeStep();
   }
 
@@ -16661,8 +16906,8 @@ ${content.innerHTML}
   const nurseSteps = [
     {
       num: 1,
-      title: "Training Overview",
-      body: "Welcome to Nurse Training!<br><br>In this tour, you'll learn how to:<br><br>• View your assigned patients at a glance<br>• Understand ETFD & ETD predictions<br>• Access detailed patient information<br>• Use the Nursing Handoff report<br>• Add patients to your board from the unit view",
+      title: "Why Birth Model?",
+      body: "<strong>You shouldn't have to dig through Epic for basic info.</strong><br><br>Between shift handoffs, hunting for labs, and trying to anticipate deliveries — you spend too much time on the computer and not enough at the bedside.<br><br>Birth Model puts <strong>everything you need on one screen</strong> — predictions, vitals, meds, allergies — with <strong>one-click handoff reports</strong>. No extra charting required.",
       requiresAction: false,
       isOverview: true
     },
@@ -16677,7 +16922,7 @@ ${content.innerHTML}
     {
       num: 3,
       title: "Your Patient Board",
-      body: "This is <strong>your focused workspace</strong> — showing only the patients assigned to you.<br><br>Each card displays key clinical information at a glance so you can prioritize care effectively.",
+      body: "This is <strong>your focused workspace</strong> — showing only the patients assigned to you.<br><br><strong>Why it matters:</strong> No clutter — just your patients, front and center.",
       spotlightText: "This is <strong>Maria Santos</strong>, one of your assigned patients. Notice the cervical status, predictions, and vitals.",
       targetElement: "nurse-card-1",
       requiresAction: false
@@ -16685,7 +16930,7 @@ ${content.innerHTML}
     {
       num: 4,
       title: "Understanding ETFD & ETD",
-      body: "Every patient card shows two key predictions:<br><br>• <strong>ETFD</strong> = Estimated Time to Full Dilation<br>• <strong>ETD</strong> = Estimated Time of Delivery<br><br>Use these to plan your shift and anticipate busy periods.",
+      body: "Every patient card shows two key predictions:<br><br>• <strong>ETFD</strong> = Estimated Time to Full Dilation<br>• <strong>ETD</strong> = Estimated Time of Delivery<br><br><strong>Why it matters:</strong> Know when things will get busy so you can prepare.",
       spotlightText: "See the <strong>ETFD</strong> and <strong>ETD</strong> times here. These help you know when deliveries are coming.",
       targetElement: "nurse-predictions-1",
       requiresAction: false
@@ -16693,7 +16938,7 @@ ${content.innerHTML}
     {
       num: 5,
       title: "Open Patient Drawer",
-      body: "Click on any <strong>patient card</strong> to open the detailed drawer.<br><br>The drawer contains comprehensive clinical information — everything you need for safe patient care.",
+      body: "Click on any <strong>patient card</strong> to open the detailed drawer.<br><br><strong>Why it matters:</strong> Everything in one place — no more chart hunting.",
       targetElement: "nurse-card-1",
       spotlightText: "<strong>Click this card</strong> to open Maria's full details.",
       requiresAction: true,
@@ -16702,7 +16947,7 @@ ${content.innerHTML}
     {
       num: 6,
       title: "Patient Details Overview",
-      body: "The patient details drawer is organized into clear sections. Let's walk through each one to understand the information available to you.",
+      body: "The patient drawer is organized into clear sections — everything you need for safe care in one view.",
       spotlightText: "We'll highlight each section as we go through them.",
       targetElement: "nurse-drawer-body",
       requiresAction: false,
@@ -16712,7 +16957,7 @@ ${content.innerHTML}
     {
       num: 7,
       title: "Labor Status",
-      body: "This section shows the <strong>current labor stage</strong>, mode of delivery, time since admission, and the critical <strong>ETFD/ETD predictions</strong>.<br><br>The <strong>indication for this encounter</strong> is displayed here (e.g., Post-dates induction, Spontaneous labor).",
+      body: "Current labor stage, mode, time since admission, and <strong>ETFD/ETD predictions</strong>.<br><br><strong>Why it matters:</strong> Know where they are in labor at a glance.",
       spotlightText: "See the <strong>Labor Status</strong> with stage, mode, and predictions.",
       targetElement: "nurse-section-labor-status",
       requiresAction: false,
@@ -16724,7 +16969,7 @@ ${content.innerHTML}
     {
       num: 8,
       title: "Condition Alerts",
-      body: "High-risk conditions are prominently displayed.<br><br><strong>Preeclampsia with Severe Features</strong> — shows current BP and last Labetalol administration time.",
+      body: "High-risk conditions prominently displayed — preeclampsia, current BP, last med times.<br><br><strong>Why it matters:</strong> Critical info you can't miss.",
       spotlightText: "See the <strong>PREE + MAG</strong> alert with BP monitoring.",
       targetElement: "nurse-section-conditions",
       requiresAction: false,
@@ -16772,7 +17017,7 @@ ${content.innerHTML}
     {
       num: 12,
       title: "Allergies",
-      body: "Prominent <strong>allergy display</strong> for medication safety.<br><br>NKDA (No Known Drug Allergies) is clearly indicated, or specific allergies are highlighted.",
+      body: "Prominent <strong>allergy display</strong> — NKDA or specific allergies highlighted.<br><br><strong>Why it matters:</strong> Medication safety at a glance.",
       spotlightText: "See the <strong>Allergy</strong> status.",
       targetElement: "nurse-section-allergies",
       requiresAction: false,
@@ -16784,7 +17029,7 @@ ${content.innerHTML}
     {
       num: 13,
       title: "GBS Status",
-      body: "Clear <strong>GBS status indicator</strong> — essential for antibiotic prophylaxis decisions.<br><br>Positive patients receiving antibiotics are clearly marked.",
+      body: "Clear <strong>GBS status</strong> — positive patients show antibiotic timing.<br><br><strong>Why it matters:</strong> Never miss prophylaxis.",
       spotlightText: "See the <strong>GBS Status</strong>.",
       targetElement: "nurse-section-gbs",
       requiresAction: false,
@@ -16904,7 +17149,7 @@ ${content.innerHTML}
     {
       num: 23,
       title: "Handoff Summary",
-      body: "AI-generated <strong>narrative summary</strong> of the patient's status — perfect for quick handoffs.<br><br>Includes key clinical facts and anticipated timeline.",
+      body: "AI-generated <strong>narrative summary</strong> of patient status with anticipated timeline.<br><br><strong>Why it matters:</strong> The whole story in 30 seconds.",
       spotlightText: "See the AI <strong>Handoff Summary</strong>.",
       targetElement: "nurse-section-handoff-summary",
       requiresAction: false,
@@ -16916,7 +17161,7 @@ ${content.innerHTML}
     {
       num: 24,
       title: "View Nursing Handoff",
-      body: "You can view the Nursing Handoff report from <strong>two places</strong>:<br><br>• <strong>Drawer:</strong> Click <em>View Nursing Handoff</em> at the top of the drawer<br>• <strong>Patient Card:</strong> Click <em>Nursing Handoff</em> button at the bottom of the card<br><br>Choose either option to see the complete shift change report.",
+      body: "You can view the Nursing Handoff report from <strong>two places</strong>:<br><br>• <strong>Drawer:</strong> Click <em>View Nursing Handoff</em> at the top<br>• <strong>Patient Card:</strong> Click <em>Nursing Handoff</em> button<br><br><strong>Why it matters:</strong> Complete shift report in one click — nothing missed.",
       targetElement: "nurse-drawer-handoff-btn",
       spotlightText: "Click <strong>either button</strong> to view the nursing handoff.",
       requiresAction: true,
@@ -16928,17 +17173,18 @@ ${content.innerHTML}
     {
       num: 25,
       title: "Close the Handoff",
-      body: "Click <strong>Close</strong> to exit the handoff report and return to your board.",
-      targetElement: "nurse-handoff-close",
+      body: "Click <strong>Close</strong> to exit the handoff report and return to your board.<br><br><strong>Why it matters:</strong> Quick in, quick out — get the info and move on.",
+      targetElement: "universal-handoff-close-btn",
       spotlightText: "<strong>Click Close</strong> to exit the handoff report.",
       requiresAction: true,
       actionType: "closeHandoff",
-      showHandoffOnLoad: true
+      showHandoffOnLoad: true,
+      highlightHandoffClose: true
     },
     {
       num: 26,
       title: "View the Unit Panel",
-      body: "Click <strong>View Unit</strong> to see all L&D patients across the unit.<br><br>Your assigned patients appear highlighted at the top. Other patients show a <strong>+</strong> button to add them to your view.",
+      body: "Click <strong>View Unit</strong> to see all L&D patients across the unit. Your assigned patients appear highlighted at the top.<br><br><strong>Why it matters:</strong> See who else is laboring — know when to ask for help.",
       targetElement: "nurse-unit-btn",
       spotlightText: "<strong>Click View Unit</strong> to see all L&D patients.",
       requiresAction: true,
@@ -16947,13 +17193,15 @@ ${content.innerHTML}
     {
       num: 27,
       title: "Add Patients to Your Board",
-      body: "Click the <strong>+</strong> button next to any patient to add them to your board.<br><br>You can add patients to:<br>• <strong>Your own board</strong> — for covering or helping<br>• <strong>Another nurse's board</strong> — for reassignments",
+      body: "Click the <strong>+</strong> button next to any patient to add them to your board or reassign to another nurse.<br><br><strong>Why it matters:</strong> Flexible assignments when covering or helping out.",
       targetElement: "nurse-add-patient-btn",
       spotlightText: "<strong>Click +</strong> to see options for adding this patient.",
       requiresAction: true,
       actionType: "showAddPatientModal",
       showUnitPanelOnLoad: true,
-      noDimOverlay: true
+      hideViewUnitBtn: true,
+      noDimOverlay: true,
+      isLastStep: true
     }
   ];
 
@@ -16962,16 +17210,31 @@ ${content.innerHTML}
   let nurseTourCompleted = false;
 
   function updateNurseStep() {
+    // Guard: Don't update if tour is completed
+    if (nurseTourCompleted) {
+      console.log('Nurse tour already completed, skipping updateNurseStep');
+      return;
+    }
+
+    console.log('updateNurseStep called, nurseStep_=' + nurseStep_);
     const step = nurseSteps[nurseStep_ - 1];
+    if (!step) {
+      console.log('No step found, showing tour complete');
+      showNurseTourComplete();
+      return;
+    }
+    console.log('step.num=' + step.num + ', title=' + step.title + ', showEpicIntegrationModal=' + step.showEpicIntegrationModal);
     nurseActionCompleted = false;
 
     // Handle Epic Integration modal step
     if (step.showEpicIntegrationModal) {
+      console.log('Showing Epic Integration modal for nurse tour');
       // Hide the step guide for this step
       document.getElementById('nurse-step-guide').classList.remove('active');
       showEpicIntegrationModal();
       return; // Don't continue with normal step rendering
     }
+    console.log('Continuing with normal step rendering for nurse step ' + step.num);
 
     // Update progress bar
     document.getElementById('nurse-progress').style.width = (nurseStep_ / nurseSteps.length * 100) + '%';
@@ -16993,8 +17256,14 @@ ${content.innerHTML}
       nextBtn.onclick = function() { nurseStep(1); };
     }
 
-    // Show/hide back button
-    document.getElementById('nurse-guide-prev-btn').style.visibility = nurseStep_ === 1 ? 'hidden' : 'visible';
+    // Show/hide back button (hidden on first step, restored otherwise)
+    const prevBtn = document.getElementById('nurse-guide-prev-btn');
+    prevBtn.style.visibility = nurseStep_ === 1 ? 'hidden' : 'visible';
+    prevBtn.style.display = ''; // Restore display in case it was hidden on final step
+
+    // Reset View Unit button z-index (in case it was lowered)
+    const viewUnitBtn = document.getElementById('nurse-unit-btn');
+    if (viewUnitBtn) viewUnitBtn.style.zIndex = '';
 
     // Remove previous highlights
     document.querySelectorAll('#demo-nurse .guide-highlight').forEach(el => el.classList.remove('guide-highlight'));
@@ -17030,9 +17299,38 @@ ${content.innerHTML}
       document.getElementById('nurseDrawerOverlay').classList.add('open');
     }
 
-    // Auto-show handoff if needed
+    // Auto-show handoff if needed (use universal handoff system)
     if (step.showHandoffOnLoad) {
-      document.getElementById('nurseHandoffModal').classList.add('open');
+      const currentPatient = window.currentNursePatient || 'maria';
+      openUniversalHandoff(currentPatient, nursePatientData);
+    }
+
+    // Highlight handoff Close button if needed (step 25)
+    if (step.highlightHandoffClose) {
+      setTimeout(() => {
+        const closeBtn = document.getElementById('universal-handoff-close-btn');
+        if (closeBtn) {
+          closeBtn.classList.add('guide-highlight');
+          // Add pointer arrow pointing LEFT from right side of Close button
+          addPointerArrowToElement('universal-handoff-close-btn', 'handoff-close-arrow', 'right');
+          // Set arrow z-index above handoff modal (150000) and move up 3px
+          const arrow = document.getElementById('handoff-close-arrow');
+          if (arrow) {
+            arrow.style.zIndex = '200020';
+            // Move arrow up 3px
+            const currentTop = parseInt(arrow.style.top) || 0;
+            arrow.style.top = (currentTop - 3) + 'px';
+          }
+          // No tooltip - just the arrow
+        }
+        // Hide the patient drawer so Nursing Handoff button isn't visible
+        const drawer = document.getElementById('drawerOverlay');
+        if (drawer) drawer.classList.remove('open');
+        // Also hide Nursing Handoff buttons on patient cards (including .npc-handoff-btn for nurse demo)
+        document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+          btn.style.zIndex = '1';
+        });
+      }, 300);
     }
 
     // Auto-show unit panel if needed
@@ -17093,32 +17391,45 @@ ${content.innerHTML}
         guideOverlay.style.paddingTop = '55px';
         guideOverlay.style.paddingBottom = '0';
       } else if (step.num === 27) {
-        // Step 27: Position closer to View Unit button (top right), WITH grey overlay
-        guideOverlay.style.justifyContent = 'flex-end';
-        guideOverlay.style.paddingRight = '200px';
-        guideOverlay.style.alignItems = 'flex-start';
-        guideOverlay.style.paddingTop = '80px';
-        // Keep default grey overlay to spotlight View Unit button
-      } else if (step.num === 28) {
-        // Step 28: Position more to the right, NO grey overlay (transparent default)
+        // Step 27: Position more to the left so it doesn't cover unit panel, WITH grey overlay
         guideOverlay.style.justifyContent = 'flex-start';
         guideOverlay.style.alignItems = 'flex-start';
-        guideOverlay.style.paddingLeft = '500px';
-        guideOverlay.style.paddingTop = '80px';
-        // Allow clicks through overlay to unit panel (modal has pointer-events:auto)
+        guideOverlay.style.paddingLeft = '80px';
+        guideOverlay.style.paddingTop = '150px';
+        // Allow clicks through overlay to unit panel
         guideOverlay.style.pointerEvents = 'none';
       }
     }
 
     // NOW show the guide modal (after background is set)
     document.getElementById('nurse-step-guide').classList.add('active');
+    console.log('Nurse step guide activated for step ' + step.num);
 
-    // Step 28: Grey overlay on background, unit panel and dialog stay clear
-    if (step.num === 28) {
-      // Keep unit panel overlay's grey background - it dims the background content
-      // The unit-panel inside has higher z-index so it stays clear
-      // Highlight Jessica Brown's + button and make ONLY it clickable
+    // Step 27: Hide View Unit button and highlight + button
+    if (step.hideViewUnitBtn) {
+      const viewUnitBtn = document.getElementById('nurse-unit-btn');
+      if (viewUnitBtn) {
+        viewUnitBtn.style.zIndex = '1'; // Move to back
+      }
+    }
+
+    // Step 27: Highlight Jessica Brown's + button and make ONLY it clickable
+    if (step.num === 27) {
+      // Hide Nursing Handoff buttons on patient cards and lower z-index
+      document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+        btn.style.zIndex = '1';
+        btn.style.zIndex = '1';
+      });
+      // Also lower the z-index of the patient cards so they stay behind the overlay
+      document.querySelectorAll('#nurse-canvas .nurse-patient-card').forEach(card => {
+        card.style.zIndex = '1';
+      });
       setTimeout(function() {
+        // Hide again after render to ensure all buttons are caught
+        document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+          btn.style.zIndex = '1';
+          btn.style.zIndex = '1';
+        });
         const addBtn = document.getElementById('nurse-add-patient-btn');
         if (addBtn) {
           addBtn.style.outline = '3px solid #f97316';
@@ -17128,6 +17439,43 @@ ${content.innerHTML}
           addBtn.style.zIndex = '100002'; // Above unit panel
         }
       }, 100);
+    }
+
+    // Step 28: You're Ready! - Close modals and show success
+    if (step.closeUnitPanelOnLoad) {
+      document.getElementById('nurseUnitPanelOverlay').classList.remove('open');
+      // Also close the Add Patient modal
+      document.getElementById('addPatientModalOverlay').classList.remove('open');
+      // Hide Nursing Handoff buttons on patient cards and lower z-index
+      document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+        btn.style.zIndex = '1';
+        btn.style.zIndex = '1';
+      });
+      // Lower patient card z-index
+      document.querySelectorAll('#nurse-canvas .nurse-patient-card').forEach(card => {
+        card.style.zIndex = '1';
+      });
+    }
+    if (step.showSuccessConfirmation) {
+      // Add success graphic to the body
+      const bodyContent = document.getElementById('nurse-guide-step-body');
+      if (bodyContent) {
+        bodyContent.innerHTML = '<div style="text-align:center;margin-bottom:16px;"><div style="width:56px;height:56px;background:linear-gradient(135deg,#10b981,#059669);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;"><span style="color:white;font-size:28px;">✓</span></div></div>' + step.body;
+      }
+      // Change button to "Finish" and make it end the tour
+      const nextBtn = document.getElementById('nurse-guide-next-btn');
+      if (nextBtn) {
+        nextBtn.textContent = 'Finish →';
+        nextBtn.onclick = function() { showNurseTourComplete(); };
+      }
+      // Hide the Back button on final step
+      const prevBtn = document.getElementById('nurse-guide-prev-btn');
+      if (prevBtn) prevBtn.style.display = 'none';
+    }
+
+    // Reset Next button display (in case it was hidden by last step), then hide if isLastStep
+    if (nextBtn) {
+      nextBtn.style.display = step.isLastStep ? 'none' : '';
     }
 
     // Steps 3-4: Keep nurse card 1 (Maria Santos) visible above grey overlay
@@ -17396,6 +17744,10 @@ ${content.innerHTML}
       if (guideModal) {
         guideModal.style.display = 'none';
       }
+      // Ensure Nursing Handoff buttons on patient cards stay hidden
+      document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+        btn.style.zIndex = '1';
+      });
       // Elevate and highlight View Unit button above the grey overlay
       const viewUnitBtn = document.getElementById('nurse-unit-btn');
       if (viewUnitBtn) {
@@ -17418,14 +17770,44 @@ ${content.innerHTML}
       document.getElementById('nurseDrawerOverlay').classList.add('open');
     }
 
-    // Auto-show handoff if needed
+    // Auto-show handoff if needed (use universal handoff system)
     if (step.showHandoffOnLoad) {
-      document.getElementById('nurseHandoffModal').classList.add('open');
+      const currentPatient = window.currentNursePatient || 'maria';
+      openUniversalHandoff(currentPatient, nursePatientData);
     }
 
     // Auto-show unit panel if needed
     if (step.showUnitPanelOnLoad) {
       document.getElementById('nurseUnitPanelOverlay').classList.add('open');
+    }
+
+    // Highlight handoff Close button if needed (step 25)
+    if (step.highlightHandoffClose) {
+      setTimeout(() => {
+        const closeBtn = document.getElementById('universal-handoff-close-btn');
+        if (closeBtn) {
+          closeBtn.classList.add('guide-highlight');
+          // Add pointer arrow pointing LEFT from right side of Close button
+          addPointerArrowToElement('universal-handoff-close-btn', 'handoff-close-arrow', 'right');
+          // Set arrow z-index above handoff modal (150000) and move up 3px
+          const arrow = document.getElementById('handoff-close-arrow');
+          if (arrow) {
+            arrow.style.zIndex = '200020';
+            // Move arrow up 3px
+            const currentTop = parseInt(arrow.style.top) || 0;
+            arrow.style.top = (currentTop - 3) + 'px';
+          }
+          // No tooltip - just the arrow
+        }
+        // Hide the patient drawer so Nursing Handoff button isn't visible
+        const drawer = document.getElementById('drawerOverlay');
+        if (drawer) drawer.classList.remove('open');
+        // Also hide Nursing Handoff buttons on patient cards (including .npc-handoff-btn for nurse demo)
+        document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+          btn.style.zIndex = '1';
+        });
+      }, 300);
+      return; // Don't show regular spotlight for this step
     }
 
     // Add highlight to target element and show spotlight
@@ -17470,6 +17852,16 @@ ${content.innerHTML}
 
     // Hide the step guide overlay
     document.getElementById('nurse-step-guide').classList.remove('active');
+
+    // Restore Nursing Handoff buttons visibility and z-index
+    document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+      btn.style.visibility = '';
+      btn.style.zIndex = '';
+    });
+    // Restore patient card z-index
+    document.querySelectorAll('#nurse-canvas .nurse-patient-card').forEach(card => {
+      card.style.zIndex = '';
+    });
 
     // Create tour complete modal
     const modal = document.createElement('div');
@@ -17518,7 +17910,9 @@ ${content.innerHTML}
   }
 
   function nurseStep(d) {
+    console.log('nurseStep called with d=' + d + ', current step=' + nurseStep_);
     const currentStep = nurseSteps[nurseStep_ - 1];
+    console.log('currentStep.num=' + currentStep.num + ', title=' + currentStep.title);
 
     // If trying to go forward on a step that requires action, check if completed
     if (d > 0 && currentStep.requiresAction && !nurseActionCompleted) {
@@ -17691,6 +18085,20 @@ ${content.innerHTML}
         addBtn.style.position = '';
         addBtn.style.zIndex = '';
       }
+      // Don't restore handoff buttons visibility - they stay hidden for steps 27-28
+    }
+
+    // Reset patient card z-index and handoff buttons when leaving step 27 (going backward)
+    if (currentStep.num === 27 && d < 0) {
+      // Reset patient card z-index
+      document.querySelectorAll('#nurse-canvas .nurse-patient-card').forEach(card => {
+        card.style.zIndex = '';
+      });
+      // Restore Nursing Handoff buttons visibility on patient cards
+      document.querySelectorAll('.nurse-card-v2 .handoff-btn, .nurse-card .handoff-btn, .mb-handoff-link, .npc-handoff-btn').forEach(btn => {
+        btn.style.visibility = '';
+        btn.style.zIndex = '';
+      });
     }
 
     nurseStep_ = Math.max(1, Math.min(nurseSteps.length, nurseStep_ + d));
@@ -17709,6 +18117,7 @@ ${content.innerHTML}
       document.getElementById('nurseDrawerOverlay').classList.remove('open');
     }
 
+    console.log('nurseStep() completed, calling updateNurseStep() with nurseStep_=' + nurseStep_);
     updateNurseStep();
   }
 
@@ -17723,36 +18132,131 @@ ${content.innerHTML}
       ga: '39w2d',
       bmi: 'BMI 31.2',
       bloodType: 'O POS',
+      provider: 'S. Rowen, CNM',
       providers: 'Jennifer S., RN  ·  S. Rowen, CNM',
+      practice: 'Northwestern Medical Group',
+      registeredAt: 'Today 6:00 AM',
       status: 'status-induction',
       stage: 'Active',
       mode: 'Laboring',
       modeColor: '#f59e0b',
       timeSinceReg: '7 hr 34 min since registration',
       condition: 'Preeclampsia w/ Severe Features',
+      indication: 'Post-dates IOL · Preeclampsia w/ severe features',
       etfd: '5:40 PM',
       etd: '6:40 PM',
       showPree: true,
       showGdm: true,
-      preeData: { bp: '112/68', lastMed: 'Labetalol @ 2:06 PM', mag: '2g/hr' },
+      pree: true,
+      diabetesType: 'GDMA2',
+      insulin: true,
+      preeData: { bp: '112/68', lastMed: 'Labetalol 20mg IV @ 2:06 PM', mag: '2g/hr' },
       gdmData: { lastBG: '128', bgTime: '12:00 PM', onInsulin: true },
       cervix: '6/80/+0',
       cervixDetail: 'Soft, Anterior',
       cervixTime: '2:08 PM',
+      lastExam: '2:08 PM',
+      dilation: 6,
+      effacement: 80,
+      station: 0,
       cervixHistory: [
         { time: 'Today 2:08 PM', exam: '6/80/+0 Soft, Anterior' },
         { time: 'Today 10:15 AM', exam: '4/70/-1 Med, Midposition' },
         { time: 'Today 6:30 AM', exam: '3/60/-2 Med, Posterior' }
       ],
-      vitals: { bp: '112/68', bpClass: '', hr: '88', hrClass: '', temp: '98.8', tempClass: '', rr: '18', spo2: '99' },
+      vitals: { bp: '148/92', bpClass: 'high', hr: '88', hrClass: '', temp: '98.8', tempClass: '', rr: '18', spo2: '99' },
       gbs: 'Positive',
       gbsClass: 'positive',
+      gbsDate: '03/01/26',
+      antibiotics: 'Penicillin G 5 million units IV, then 2.5 million q4h (GBS prophylaxis)',
+      antibioticDose: '5 million units IV loading, 2.5 million q4h',
       rom: { status: 'AROM', time: '8:45 AM', hours: '5.5', color: 'Clear' },
-      labs: { wbc: '11.2', hgb: '10.8', hct: '32', plt: '185' },
+      epidural: true,
+      epiduralTime: '9:30 AM',
+      pitocin: 12,
+      oxytocinStartTime: '6:00 AM',
+      oxytocinDuration: '8h 30m',
+      oxytocinHistory: [
+        { time: '6:00 AM', dose: 2 },
+        { time: '6:30 AM', dose: 4 },
+        { time: '7:00 AM', dose: 6 },
+        { time: '7:30 AM', dose: 8 },
+        { time: '8:30 AM', dose: 10 },
+        { time: '10:00 AM', dose: 12 }
+      ],
+      magSulfate: { bolus: '4g IV over 20min', maintenance: '2g/hr', started: '6:15 AM' },
+      bpMeds: [
+        { drug: 'Labetalol', dose: '20mg IV', time: '2:06 PM' },
+        { drug: 'Labetalol', dose: '20mg IV', time: '10:30 AM' }
+      ],
+      labs: {
+        wbc: '11.2', wbcPrev: '9.8', wbcPrevDate: 'Yesterday',
+        hgb: '10.8', hgbPrev: '11.4', hgbPrevDate: 'Yesterday',
+        hct: '32', hctPrev: '34',
+        plt: '185', pltPrev: '210', pltPrevDate: 'Yesterday',
+        pt: '10.2', inr: '0.98', ptt: '28', fibrinogen: '425',
+        tsDate: 'Today 6:00 AM'
+      },
+      preeLabs: {
+        creat: '0.72', creatPrev: '0.68',
+        ast: '28', astPrev: '24',
+        alt: '22', altPrev: '18',
+        ldh: '195', ldhPrev: '175',
+        uricAcid: '5.8',
+        proteinuria: '2+',
+        egfr: '>90'
+      },
+      glucose: {
+        fasting: '92',
+        fastingTime: '6:00 AM',
+        postMeal: '128',
+        postMealTime: '12:00 PM',
+        nextDue: '2:00 PM (1hr post-lunch)'
+      },
+      insulinRegimen: 'Sliding scale + basal (NPH 10u qHS)',
       fhr: { baseline: '140', variability: 'Moderate', accels: 'Present', decels: 'None' },
+      pphRisk: 'High',
+      allergies: 'NKDA',
+      medicalHistory: 'Preeclampsia w/ severe features · Gestational DM (insulin-requiring) · Chronic hypertension',
+      surgicalHistory: 'Appendectomy 2018',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy · Lives with partner',
+      homeMeds: 'Prenatal vitamin · Labetalol 200mg BID · ASA 81mg daily · NPH insulin 10u qHS',
+      ivSite: '18G · L AC',
+      ivSite2: '20G · R hand',
+      ivPlacedAt: '6:00 AM',
+      ivPlaced2: '2:00 PM',
+      ivFluids: 'LR 1000mL + 20u Pitocin',
+      ivRate: '125 mL/hr (via pump)',
+      foleyStatus: 'Placed 9:30 AM with epidural',
+      io: {
+        oralLast: 'NPO', oralIntake: 0, oral24h: 120, oralTotal: 120,
+        ivLast: 500, ivIntake: 875, iv24h: 2125, ivTotal: 2625,
+        intakeLast: 500, intakeShift: 875, intake24h: 2245, intakeTotal: 2745,
+        urineLast: 425, urineShift: 520, urine24h: 1450, urineTotal: 1875,
+        outputLast: 425, outputShift: 520, output24h: 1450, outputTotal: 1875,
+        netLast: '+75', netShift: '+355', net24h: '+795', netTotal: '+870'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'O POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-15' },
+        flu: { status: 'Given', date: '2025-10-01' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-10' }
+      },
       handoff: {
         summary: 'G2P1 at 39w2d with post-dates IOL, preeclampsia with severe features on mag sulfate 2g/hr, and GDMA2 on insulin drip. Pitocin started at 0600, currently at 12 mU/min. AROM at 0845 with clear fluid. Epidural placed at 0930, patient comfortable.',
-        concerns: 'Monitor for mag toxicity (check reflexes q2h), maintain strict I&Os, watch for signs of worsening preeclampsia. Blood glucose checks q1h while on insulin.',
+        concerns: 'Monitor for mag toxicity (check reflexes q2h), maintain strict I&Os, watch for signs of worsening preeclampsia. Blood glucose checks q1h while on insulin. ⚠️ NO METHERGINE if PPH (on magnesium).',
         plan: 'Continue pitocin augmentation, anticipate delivery this shift. Will need mag for 24h postpartum. Notify MD if BP >160/110 or symptoms of severe preeclampsia.',
         babyStatus: 'Category 1 tracing, baseline 140s with moderate variability, accels present, no decels.'
       }
@@ -17766,17 +18270,22 @@ ${content.innerHTML}
       ga: '39w0d',
       bmi: 'BMI 32.1',
       bloodType: 'A POS',
+      provider: 'A. Adams, MD',
       providers: 'Jennifer S., RN  ·  A. Adams, MD',
+      practice: 'Women\'s Health Associates',
+      registeredAt: 'Today 8:00 AM',
       status: 'status-scheduled-cs',
       stage: 'Pre-Op',
       mode: 'Scheduled C/S',
       modeColor: '#6366f1',
       timeSinceReg: 'Scheduled for 10:30 AM',
       condition: 'Repeat cesarean section',
+      indication: 'Repeat cesarean section · History of 2 prior LTCS',
       etfd: 'N/A',
       etd: '10:30 AM',
       showPree: false,
       showGdm: false,
+      pree: false,
       preeData: null,
       gdmData: null,
       cervix: 'N/A',
@@ -17785,24 +18294,76 @@ ${content.innerHTML}
       cervixHistory: [
         { time: 'N/A', exam: 'No cervical exams - scheduled cesarean' }
       ],
+      priorCs: true,
+      tolac: false,
       vitals: { bp: '124/78', bpClass: '', hr: '76', hrClass: '', temp: '98.2', tempClass: '', rr: '16', spo2: '100' },
       gbs: 'Negative',
       gbsClass: 'negative',
+      gbsDate: '02/28/26',
       rom: { status: 'Intact', time: '', hours: '', color: '' },
-      labs: { wbc: '8.4', hgb: '12.1', hct: '36', plt: '224' },
+      epidural: false,
+      labs: {
+        wbc: '8.4',
+        hgb: '12.1', hgbPrev: '12.4', hgbPrevDate: '2 weeks ago',
+        hct: '36',
+        plt: '224',
+        pt: '10.8', inr: '1.0', ptt: '30', fibrinogen: '385',
+        tsDate: 'Today 8:00 AM'
+      },
       fhr: { baseline: '145', variability: 'Moderate', accels: 'Present', decels: 'None' },
+      pphRisk: 'Medium',
+      allergies: 'Latex',
+      allergyList: [
+        { drug: 'Latex', reaction: 'Anaphylaxis' }
+      ],
+      medicalHistory: 'Prior cesarean sections x2 (2020, 2022) · History of adhesions',
+      surgicalHistory: 'Prior cesarean section x2 · Low transverse incisions',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy · Works as teacher',
+      homeMeds: 'Prenatal vitamin daily · Iron supplement',
+      ivSite: '18G · R forearm',
+      ivPlacedAt: '8:15 AM',
+      ivFluids: 'LR 1000mL',
+      ivRate: '125 mL/hr',
+      foleyStatus: 'To be placed in OR',
+      io: {
+        oralLast: 'NPO', oralIntake: 0, oral24h: 0, oralTotal: 0,
+        ivLast: 0, ivIntake: 250, iv24h: 250, ivTotal: 250,
+        intakeLast: 0, intakeShift: 250, intake24h: 250, intakeTotal: 250,
+        urineLast: 0, urineShift: 0, urine24h: 0, urineTotal: 0,
+        outputLast: 0, outputShift: 0, output24h: 0, outputTotal: 0,
+        netLast: '—', netShift: '+250', net24h: '+250', netTotal: '+250'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'A POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-20' },
+        flu: { status: 'Given', date: '2025-10-15' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-18' }
+      },
       handoff: {
         summary: 'G3P2 at 39w0d presenting for scheduled repeat cesarean section. History of 2 prior low transverse cesareans. NPO since midnight, IV started with LR at 125 mL/hr. Type and screen on file, 2 units PRBCs available.',
-        concerns: 'History of adhesions noted in prior surgical report - may have longer operative time. Patient has latex allergy - ensure OR is latex-free.',
-        plan: 'Scheduled for 10:30 AM cesarean. Anesthesia consult complete, plan for spinal. Foley to be placed in OR. Ancef 2g IV at time of incision.',
+        concerns: '⚠️ LATEX ALLERGY - ensure OR is latex-free. History of adhesions noted in prior surgical report - may have longer operative time.',
+        plan: 'Scheduled for 10:30 AM cesarean. Anesthesia consult complete, plan for spinal. Foley to be placed in OR. Ancef 2g IV at time of incision (or Clindamycin if PCN allergy).',
         babyStatus: 'Reactive NST this morning, Category 1 tracing with baseline 145, moderate variability, spontaneous accelerations.'
       }
     }
   };
 
   function openNurseDrawer(patient) {
-    // Prevent opening drawer on steps 1-2 (info-only steps) unless in explore mode
-    if (!window.exploreMode && (nurseStep_ === 1 || nurseStep_ === 2)) {
+    // Prevent opening drawer on steps 1-4 (info-only steps) unless in explore mode
+    // Step 1: Overview, Step 2: Epic Integration, Step 3: Patient Board info, Step 4: ETFD/ETD info
+    if (!window.exploreMode && (nurseStep_ >= 1 && nurseStep_ <= 4)) {
       // Show the guide modal
       document.getElementById('nurse-step-guide').classList.add('active');
       return;
@@ -18037,8 +18598,9 @@ ${content.innerHTML}
 
     drawer.classList.add('open');
 
-    // Mark action as completed for step 4 (Open Patient Drawer)
-    if (nurseStep_ === 4) {
+    // Mark action as completed for step 5 (Open Patient Drawer)
+    // Note: Step 5 after Epic Integration was added as step 2
+    if (nurseStep_ === 5) {
       nurseActionCompleted = true;
       // Auto-advance to next step after brief delay
       setTimeout(() => nurseStep(1), 400);
@@ -18059,8 +18621,9 @@ ${content.innerHTML}
     // Use universal handoff system
     openUniversalHandoff(patientId, nursePatientData);
 
-    // Mark action as completed for step 23 (View Nursing Handoff from drawer)
-    if (nurseStep_ === 23) {
+    // Mark action as completed for step 24 (View Nursing Handoff from drawer)
+    // Note: Step 24 is "View Nursing Handoff" - user clicks to open handoff modal
+    if (nurseStep_ === 24) {
       nurseActionCompleted = true;
       // Auto-advance to next step after brief delay
       setTimeout(() => nurseStep(1), 400);
@@ -18244,22 +18807,90 @@ ${content.innerHTML}
   }
   function closeNurseHandoff() {
     document.getElementById('nurseHandoffModal').classList.remove('open');
+    closeUniversalHandoff(); // Also close universal modal
     repositionStepCallout('top', 'nurse');
     removePointerArrow();
 
-    // Mark action as completed for step 24 (Close handoff)
-    if (nurseStep_ === 24) {
+    // Mark action as completed for step 25 (Close handoff)
+    // Note: Step 25 is "Close the Handoff" - user clicks Close button
+    if (nurseStep_ === 25) {
       nurseActionCompleted = true;
       // Auto-advance to next step after brief delay
       setTimeout(() => nurseStep(1), 400);
     }
   }
+
+  // Switch nurse demo tabs (just updates styling - cards stay the same for demo)
+  // Nurse section data - reuses charge nurse section data for non-My Patients views
+  const nurseSectionData = {
+    mypatients: {
+      name: 'My Patients',
+      patients: 2,
+      useNurseCanvas: true
+    },
+    north: sectionData.north,
+    south: sectionData.south,
+    triage: sectionData.triage,
+    antepartum: sectionData.antepartum,
+    or: sectionData.or,
+    all: sectionData.all,
+    postpartum: sectionData.postpartum
+  };
+
+  function switchNurseSection(section) {
+    // Update active tab styling
+    document.querySelectorAll('#nurse-section-tabs .resident-section-tab').forEach(t => t.classList.remove('active'));
+    const tabBtn = document.getElementById('nurse-tab-' + section);
+    if (tabBtn) tabBtn.classList.add('active');
+
+    const nurseCanvas = document.getElementById('nurse-canvas');
+    const sectionWrapper = document.getElementById('nurse-section-view-wrapper');
+    const sectionView = document.getElementById('nurse-section-view');
+    const sectionHeader = document.getElementById('nurse-section-header');
+
+    if (section === 'mypatients') {
+      // Show large nurse cards, hide section view
+      if (nurseCanvas) nurseCanvas.style.display = '';
+      if (sectionWrapper) sectionWrapper.style.display = 'none';
+    } else {
+      // Hide nurse canvas, show section view with pt-cards
+      if (nurseCanvas) nurseCanvas.style.display = 'none';
+      if (sectionWrapper) {
+        sectionWrapper.style.display = '';
+        const data = nurseSectionData[section];
+        if (data) {
+          // Update section header with name, count, and staffing (same format as charge nurse)
+          if (sectionHeader) {
+            sectionHeader.innerHTML = `
+              <div><span class="section-name">${data.name}</span><span class="section-count">${data.patients} patients</span></div>
+              <div class="section-staffing">
+                <span class="staffing-label">${data.name} Nurses</span>
+                <span class="staffing-box this-shift"><span class="staffing-value">${data.thisShift || 0}</span> <span class="staffing-desc">This Shift</span></span>
+                <span class="staffing-box next-shift"><span class="staffing-value">${data.nextShift || 0}</span> <span class="staffing-desc">Next Shift</span></span>
+              </div>
+            `;
+          }
+          // Update cards
+          if (sectionView && data.cards) {
+            sectionView.innerHTML = data.cards;
+          }
+        }
+      }
+    }
+  }
+
+  // Legacy function for backward compatibility
+  function switchNurseTab(tab) {
+    switchNurseSection(tab);
+  }
+
   function toggleNurseUnitPanel() {
     // Open the proper slide-in unit panel
     document.getElementById('nurseUnitPanelOverlay').classList.add('open');
 
-    // Mark action as completed for step 25 (Open Unit Panel)
-    if (nurseStep_ === 25) {
+    // Mark action as completed for step 26 (View the Unit Panel)
+    // Note: Step number shifted after Epic Integration was added as step 2
+    if (nurseStep_ === 26) {
       nurseActionCompleted = true;
       // Auto-advance to next step after brief delay
       setTimeout(() => nurseStep(1), 400);
@@ -18311,11 +18942,7 @@ ${content.innerHTML}
 
     // Hide spotlight for now
     hideSpotlight();
-
-    // Mark action as completed for step 26 (Add Patients)
-    if (nurseStep_ === 26) {
-      nurseActionCompleted = true;
-    }
+    // Note: Action completion for step 27 happens in addPatientToMyBoard() or assignNurseToPatient()
   }
 
   function closeAddPatientModal() {
@@ -18422,12 +19049,14 @@ ${content.innerHTML}
     popup.className = 'step-success';
     popup.innerHTML = `✓ Patient added to your board!`;
     document.body.appendChild(popup);
-    setTimeout(() => {
-      popup.remove();
-      if (nurseStep_ === 26 && nurseActionCompleted) {
-        showNurseTourComplete();
-      }
-    }, 1000);
+    setTimeout(() => popup.remove(), 1000);
+
+    // Mark action as completed for step 27 (Add Patients to Your Board) - last step
+    if (nurseStep_ === 27) {
+      nurseActionCompleted = true;
+      // Show tour complete modal after brief delay
+      setTimeout(() => showNurseTourComplete(), 400);
+    }
   }
 
   function showNurseSelector() {
@@ -18445,12 +19074,14 @@ ${content.innerHTML}
     popup.className = 'step-success';
     popup.innerHTML = `✓ Patient assigned to ${nurseName}!`;
     document.body.appendChild(popup);
-    setTimeout(() => {
-      popup.remove();
-      if (nurseStep_ === 26 && nurseActionCompleted) {
-        showNurseTourComplete();
-      }
-    }, 1000);
+    setTimeout(() => popup.remove(), 1000);
+
+    // Mark action as completed for step 27 (Add Patients to Your Board) - last step
+    if (nurseStep_ === 27) {
+      nurseActionCompleted = true;
+      // Show tour complete modal after brief delay
+      setTimeout(() => showNurseTourComplete(), 400);
+    }
   }
 
   // ═══════════════ CLINICIAN DEMO ═══════════════
@@ -18461,7 +19092,7 @@ ${content.innerHTML}
     {
       num: 1,
       title: "Why Birth Model?",
-      body: "<strong>Patient data shouldn't be buried in Epic.</strong><br><br>No more opening multiple charts, hunting for labs, or missing deliveries because you didn't see a cervical change.<br><br>Birth Model puts everything on <strong>one screen</strong> — cervical status, delivery predictions, condition alerts, and notes — so you can focus on patients, not clicking.",
+      body: "<strong>You're a clinician, not a chart detective.</strong><br><br>Opening multiple Epic tabs, hunting for labs, scrolling through flowsheets — you spend more time clicking than caring for patients. And deliveries still catch you off guard.<br><br>Birth Model gives you <strong>one screen</strong> with cervical status, delivery predictions, condition alerts, and <strong>delivery notes in 30 seconds</strong> — so you can focus on medicine, not documentation.",
       requiresAction: false,
       isOverview: true
     },
@@ -18564,7 +19195,7 @@ ${content.innerHTML}
     {
       num: 11,
       title: "Add Practice Patients",
-      body: "<strong>On a call day, you want to track all your practice patients.</strong><br><br>These chips let you add patients from your affiliated practices with a single click.<br><br>If you're covering for <strong>NASOG</strong> today, add all 12 of their patients to your board instantly.",
+      body: "On a call day, add all your practice patients with a single click.<br><br><strong>Why it matters:</strong> Instantly see everyone you're covering.",
       targetElement: "clin-pin-carousel",
       spotlightText: "This row shows <strong>practice patient groups</strong> you can add to your board.",
       requiresAction: false,
@@ -18613,7 +19244,7 @@ ${content.innerHTML}
     {
       num: 16,
       title: "Your Patient Board",
-      body: "Each card shows cervical status, delivery predictions, and condition tags at a glance.",
+      body: "Each card shows cervical status, predictions, and condition tags at a glance.<br><br><strong>Why it matters:</strong> Prioritize rounds in seconds.",
       spotlightText: "This is <strong>Maria Santos</strong> — notice her cervical status and delivery predictions.",
       targetElement: "clin-card-maria",
       requiresAction: false,
@@ -18622,7 +19253,7 @@ ${content.innerHTML}
     {
       num: 17,
       title: "ETFD & ETD Predictions",
-      body: "<strong>ETFD</strong> = Time to full dilation<br><strong>ETD</strong> = Expected delivery time<br><br>Plan coverage and avoid surprises.",
+      body: "<strong>ETFD</strong> = Time to full dilation<br><strong>ETD</strong> = Expected delivery time<br><br><strong>Why it matters:</strong> Plan coverage and avoid surprises.",
       targetElement: "clin-card-maria",
       requiresAction: false,
       highlightEtfdEtd: true,
@@ -18631,7 +19262,7 @@ ${content.innerHTML}
     {
       num: 18,
       title: "Open Patient Drawer",
-      body: "Click any card to see the full clinical picture — labs, vitals, prenatal history, and more.",
+      body: "Click any card for the full clinical picture — no tab hunting in Epic.<br><br><strong>Why it matters:</strong> Everything in one place.",
       targetElement: "clin-card-maria",
       spotlightText: "<strong>Click to open Maria's details</strong>",
       requiresAction: true,
@@ -18842,7 +19473,7 @@ ${content.innerHTML}
     {
       num: 35,
       title: "My Practices",
-      body: "See your practice patients currently on the unit.",
+      body: "See your practice patients currently on the unit.<br><br><strong>Why it matters:</strong> Know who's here from your group.",
       targetElement: "clin-practice-panel-toggle",
       spotlightText: "<strong>Explore your practice patients</strong> — click to open.",
       requiresAction: true,
@@ -18853,7 +19484,7 @@ ${content.innerHTML}
     {
       num: 36,
       title: "Add to My Board",
-      body: "Add patients to your board for quick tracking.",
+      body: "Add patients to your board for quick tracking.<br><br><strong>Why it matters:</strong> Build your own view of who to watch.",
       targetElement: "clin-practice-add-btn",
       spotlightText: "<strong>Add this patient</strong> to your personal board.",
       showPracticePanelOnLoad: true,
@@ -18887,7 +19518,7 @@ ${content.innerHTML}
     {
       num: 39,
       title: "Complete a Delivery Note",
-      body: "The <span style='color:#16a34a;'>green checkmark</span> means ready for documentation.",
+      body: "The <span style='color:#16a34a;'>green checkmark</span> means ready for documentation.<br><br><strong>Why it matters:</strong> 30-second delivery notes instead of 10-minute dictations.",
       targetElement: "clin-dn-btn-rachel",
       spotlightText: "<strong>Click to open the delivery note</strong>",
       requiresAction: true,
@@ -18899,7 +19530,7 @@ ${content.innerHTML}
     {
       num: 40,
       title: "Pre-Filled from Epic",
-      body: "Auto-filled from Epic. <span style='color:#f97316;font-weight:600;'>Orange fields</span> need your input.",
+      body: "Auto-filled from Epic. <span style='color:#f97316;font-weight:600;'>Orange fields</span> need your input.<br><br><strong>Why it matters:</strong> No retyping what's already charted.",
       targetElement: null,
       requiresAction: false,
       showDeliveryNoteOnLoad: true,
@@ -18908,7 +19539,7 @@ ${content.innerHTML}
     {
       num: 41,
       title: "Fill Missing Fields",
-      body: "Click <span style='color:#f97316;font-weight:600;'>orange fields</span> to fill. Selections save to your preference card.",
+      body: "Click <span style='color:#f97316;font-weight:600;'>orange fields</span> to fill. Selections save to your preference card.<br><br><strong>Why it matters:</strong> Your defaults auto-fill next time.",
       targetElement: "clin-dn-missing-dropdown",
       spotlightText: "<strong>Select laceration type</strong> to complete the note.",
       showDeliveryNoteOnLoad: true,
@@ -18919,7 +19550,7 @@ ${content.innerHTML}
     {
       num: 42,
       title: "Your Preference Card",
-      body: "<span style='color:#0d9488;font-weight:600;'>Teal values</span> are your preferences. Click any to change.",
+      body: "<span style='color:#0d9488;font-weight:600;'>Teal values</span> are your preferences. Click any to change.<br><br><strong>Why it matters:</strong> Notes that match how you practice.",
       targetElement: "clin-dn-preference-card-content",
       requiresAction: false,
       showDeliveryNoteOnLoad: true,
@@ -18931,7 +19562,7 @@ ${content.innerHTML}
     {
       num: 43,
       title: "Sign & Send",
-      body: "Preview the note before sending to Epic.",
+      body: "Preview the note before sending to Epic.<br><br><strong>Why it matters:</strong> Final review before it's filed.",
       targetElement: "clinDnSendBtn",
       spotlightText: "<strong>Click Sign & Send</strong> to preview the note.",
       showDeliveryNoteOnLoad: true,
@@ -18942,7 +19573,7 @@ ${content.innerHTML}
     {
       num: 44,
       title: "Epic Preview",
-      body: "Review and send to Epic.",
+      body: "Review and send to Epic.<br><br><strong>Why it matters:</strong> One click to file the note.",
       targetElement: "clinicianEpicSendBtn",
       spotlightText: "<strong>Click Sign & Send</strong> to file the note to Epic.",
       useSpotlightPopup: true,
@@ -18953,7 +19584,7 @@ ${content.innerHTML}
     {
       num: 45,
       title: "Update Delivery Note",
-      body: "After delivery, click <strong>Update Delivery Note</strong> to edit and resend during postpartum rounding.",
+      body: "After delivery, click <strong>Update Delivery Note</strong> to edit and resend during postpartum rounding.<br><br><strong>Why it matters:</strong> Add info later without starting over.",
       targetElement: "clin-card-rachel-wrapper",
       requiresAction: false,
       showUpdateButtonState: true,
@@ -19111,48 +19742,139 @@ ${content.innerHTML}
       ga: '39w2d',
       bmi: 'BMI 31.2',
       bloodType: 'O POS',
+      provider: 'S. Rowen, CNM',
       providers: 'Jennifer S., RN · S. Rowen, CNM · Dr. A. Watters, MD (Attending)',
+      practice: 'Northwestern Medical Group',
+      registeredAt: 'Yesterday 7:30 PM',
       status: 'status-induction',
       stage: 'Active',
       mode: 'Laboring',
       modeColor: '#f59e0b',
       timeSinceReg: '15h 42m since registration',
       condition: 'Post-dates IOL',
+      indication: 'Post-dates IOL · Preeclampsia w/ severe features · GDMA2',
       etfd: '2:15 PM',
       etd: '3:27 PM',
       showPree: true,
       showGdm: true,
       showDeliveryNote: false,
-      preeData: { bp: '118/72', lastMed: 'Labetalol @ 7:30 AM', mag: '2g/hr' },
+      pree: true,
+      diabetesType: 'GDMA2',
+      insulin: true,
+      preeData: { bp: '148/92', lastMed: 'Labetalol 20mg IV @ 7:30 AM', mag: '2g/hr' },
       gdmData: { lastBG: '128', bgTime: '7:00 AM', onInsulin: true },
-      vitals: { bp: '118/72', hr: '88', temp: '98.4', rr: '18', spo2: '99' },
+      vitals: { bp: '148/92', hr: '88', temp: '98.4', rr: '18', spo2: '99' },
       gbs: 'Positive',
       gbsClass: 'positive',
+      gbsDate: '03/01/26',
       cervix: '6/80/+0',
       cervixDetail: 'Soft, Anterior',
       cervixTime: '2:08 PM',
+      lastExam: '2:08 PM',
+      dilation: 6,
+      effacement: 80,
+      station: 0,
       cervixHistory: [
         { time: 'Today 2:08 PM', exam: '6/80/+0 Soft, Anterior' },
         { time: 'Today 9:25 AM', exam: '4/70/-1 Soft, Anterior' },
         { time: 'Today 6:15 AM', exam: '2/50/-2 Med, Posterior' },
         { time: 'Yesterday 7:30 PM', exam: '1/30/-3 Firm, Posterior (Admission)' }
       ],
-      labs: { wbc: '9.2', hgb: '11.6', hct: '35', plt: '245' },
+      labs: {
+        wbc: '9.2', wbcPrev: '8.6', wbcPrevDate: 'Admission',
+        hgb: '11.6', hgbPrev: '12.2', hgbPrevDate: 'Admission',
+        hct: '35', hctPrev: '37',
+        plt: '245', pltPrev: '268', pltPrevDate: 'Admission',
+        pt: '10.4', inr: '0.99', ptt: '29', fibrinogen: '445',
+        tsDate: 'Yesterday 7:45 PM'
+      },
+      preeLabs: {
+        creat: '0.74', creatPrev: '0.65',
+        ast: '32', astPrev: '22',
+        alt: '26', altPrev: '18',
+        ldh: '210', ldhPrev: '168',
+        uricAcid: '6.2',
+        proteinuria: '3+',
+        egfr: '>90'
+      },
+      glucose: {
+        fasting: '88',
+        fastingTime: '6:00 AM',
+        postMeal: '128',
+        postMealTime: '8:00 AM',
+        nextDue: '12:00 PM (pre-lunch)'
+      },
+      insulinRegimen: 'Sliding scale + basal (NPH 12u qHS)',
       fhr: { baseline: '140', variability: 'Moderate', accels: 'Present', decels: 'None' },
       allergies: 'NKDA',
       rom: { status: 'AROM', time: '9:25 AM', hours: '5.5', color: 'Clear' },
       epidural: true,
       epiduralTime: '7:35 AM',
       pitocin: 8,
-      antibiotics: 'Clindamycin 900mg IV q8h (GBS+)',
-      pphRisk: 'Medium',
-      diabetesType: 'GDMA2',
-      insulin: true,
-      pree: true,
+      oxytocinStartTime: '6:00 AM',
+      oxytocinDuration: '8h 15m',
+      oxytocinHistory: [
+        { time: '6:00 AM', dose: 2 },
+        { time: '6:30 AM', dose: 4 },
+        { time: '7:15 AM', dose: 6 },
+        { time: '8:00 AM', dose: 8 }
+      ],
+      cervicalRipening: {
+        misoprostol: [
+          { dose: '25 mcg PV', datetime: 'Yesterday 8:00 PM' },
+          { dose: '25 mcg PV', datetime: 'Yesterday 11:00 PM' },
+          { dose: '25 mcg PV', datetime: 'Today 2:00 AM' }
+        ]
+      },
+      magSulfate: { bolus: '4g IV over 20min', maintenance: '2g/hr', started: '7:45 PM' },
+      bpMeds: [
+        { drug: 'Labetalol', dose: '20mg IV', time: '7:30 AM' },
+        { drug: 'Labetalol', dose: '20mg IV', time: 'Yesterday 10:00 PM' }
+      ],
+      antibiotics: 'Penicillin G 5 million units IV, then 2.5 million q4h (GBS+)',
+      antibioticDose: '2.5 million units IV (dose #3 given 6:00 AM)',
+      pphRisk: 'High',
+      medicalHistory: 'Preeclampsia w/ severe features · Gestational DM (insulin-requiring) · Chronic hypertension',
+      surgicalHistory: 'Appendectomy 2019',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy',
+      homeMeds: 'Prenatal vitamin · Labetalol 200mg BID · ASA 81mg daily · NPH insulin 12u qHS',
+      ivSite: '18G · L AC',
+      ivSite2: '20G · R hand',
+      ivPlacedAt: 'Yesterday 7:45 PM',
+      ivPlaced2: 'Today 6:00 AM',
+      ivFluids: 'LR 1000mL + Pitocin 20u',
+      ivRate: '125 mL/hr',
+      foleyStatus: 'Placed 7:35 AM with epidural · draining clear yellow',
+      io: {
+        oralLast: 'Ice chips', oralIntake: 60, oral24h: 180, oralTotal: 240,
+        ivLast: 625, ivIntake: 750, iv24h: 2250, ivTotal: 2875,
+        intakeLast: 625, intakeShift: 810, intake24h: 2430, intakeTotal: 3115,
+        urineLast: 450, urineShift: 525, urine24h: 1575, urineTotal: 2025,
+        outputLast: 450, outputShift: 525, output24h: 1575, outputTotal: 2025,
+        netLast: '+175', netShift: '+285', net24h: '+855', netTotal: '+1090'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'O POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-15' },
+        flu: { status: 'Given', date: '2025-10-01' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-10' }
+      },
       handoff: {
-        summary: 'G2P1 at 39w2d with post-dates IOL, preeclampsia with severe features on mag sulfate 2g/hr, and GDMA2 on insulin. Pitocin augmentation ongoing. AROM at 0925 with clear fluid. Epidural placed, comfortable. GBS+ on antibiotics.',
-        concerns: 'Monitor BPs for severe range, magnesium toxicity symptoms. Blood glucose monitoring Q4H. Watch for chorioamnionitis given ROM duration.',
-        plan: 'Continue current management. Anticipate delivery within 4-6 hours. May need assistance if prolonged second stage given comorbidities.',
+        summary: 'G2P1 at 39w2d with post-dates IOL, preeclampsia with severe features on mag sulfate 2g/hr, and GDMA2 on insulin. Pitocin augmentation ongoing at 8 mU/min. AROM at 0925 with clear fluid. Epidural placed, comfortable. GBS+ on PCN.',
+        concerns: '⚠️ Monitor BPs for severe range (>160/110), mag toxicity symptoms (check reflexes q2h). Blood glucose monitoring q1h while on insulin. Watch for chorioamnionitis given ROM duration. ⚠️ NO METHERGINE if PPH (on magnesium).',
+        plan: 'Continue current management. Anticipate delivery within 4-6 hours. Continue mag 24h postpartum. May need assistance if prolonged second stage given comorbidities.',
         babyStatus: 'FHR baseline 140, moderate variability, accelerations present, no decelerations. Category 1 tracing.'
       }
     },
@@ -19165,13 +19887,17 @@ ${content.innerHTML}
       ga: '40w1d',
       bmi: 'BMI 26.8',
       bloodType: 'B POS',
+      provider: 'Dr. A. Watters, MD',
       providers: 'Emily T., RN · Dr. A. Watters, MD (Attending)',
+      practice: 'Women\'s Health Associates',
+      registeredAt: 'Yesterday 11:00 PM',
       status: 'status-pushing',
       stage: 'Second',
       mode: 'Pushing',
       modeColor: '#dc2626',
       timeSinceReg: '12h 15m since registration',
       condition: 'Spontaneous labor',
+      indication: 'Spontaneous labor at 40w1d',
       etfd: 'Complete',
       etd: '11:45 AM',
       showPree: false,
@@ -19180,20 +19906,76 @@ ${content.innerHTML}
       vitals: { bp: '120/74', hr: '92', temp: '99.0', rr: '18', spo2: '99' },
       gbs: 'Negative',
       gbsClass: 'negative',
+      gbsDate: '03/02/26',
       cervix: '10/100/+2',
-      cervixHistory: [{ time: '10:45 AM', exam: '10/100/+2 - Pushing' }, { time: '8:30 AM', exam: '8/100/+1' }],
-      labs: { wbc: '11.8', hgb: '11.2', hct: '33', plt: '205' },
+      cervixDetail: 'Complete',
+      cervixTime: '10:45 AM',
+      lastExam: '10:45 AM',
+      dilation: 10,
+      effacement: 100,
+      station: 2,
+      cervixHistory: [
+        { time: 'Today 10:45 AM', exam: '10/100/+2 - Pushing' },
+        { time: 'Today 8:30 AM', exam: '8/100/+1' },
+        { time: 'Today 5:00 AM', exam: '6/90/0' },
+        { time: 'Today 1:00 AM', exam: '4/80/-1' },
+        { time: 'Yesterday 11:30 PM', exam: '3/70/-2 (Admission)' }
+      ],
+      labs: {
+        wbc: '11.8', wbcPrev: '9.0', wbcPrevDate: 'Admission',
+        hgb: '11.2', hgbPrev: '12.0', hgbPrevDate: 'Admission',
+        hct: '33', hctPrev: '36',
+        plt: '205', pltPrev: '228', pltPrevDate: 'Admission',
+        pt: '10.5', inr: '0.98', ptt: '29', fibrinogen: '420',
+        tsDate: 'Yesterday 11:45 PM'
+      },
       fhr: { baseline: '145', variability: 'Moderate', accels: 'Present', decels: 'Variable - mild' },
       allergies: 'NKDA',
       rom: { status: 'SROM', time: '6:15 AM', color: 'Clear' },
       epidural: true,
       epiduralTime: '7:30 AM',
       pitocin: 0,
+      pphRisk: 'Low',
+      medicalHistory: 'None significant · Nulliparous',
+      surgicalHistory: 'Wisdom teeth extraction 2018',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy · Works as graphic designer',
+      homeMeds: 'Prenatal vitamin daily',
+      ivSite: '20G · R hand',
+      ivPlacedAt: 'Yesterday 11:45 PM',
+      ivFluids: 'LR 1000mL',
+      ivRate: '125 mL/hr',
+      foleyStatus: 'Placed with epidural · draining clear yellow',
+      io: {
+        oralLast: 'Ice chips', oralIntake: 90, oral24h: 180, oralTotal: 180,
+        ivLast: 500, ivIntake: 625, iv24h: 1500, ivTotal: 1500,
+        intakeLast: 500, intakeShift: 715, intake24h: 1680, intakeTotal: 1680,
+        urineLast: 400, urineShift: 475, urine24h: 1200, urineTotal: 1200,
+        outputLast: 400, outputShift: 475, output24h: 1200, outputTotal: 1200,
+        netLast: '+100', netShift: '+240', net24h: '+480', netTotal: '+480'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'B POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-18' },
+        flu: { status: 'Given', date: '2025-10-02' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-16' }
+      },
       handoff: {
-        summary: 'G1P0 at 40w1d in spontaneous labor, now complete and pushing. Second stage for 45 minutes. Category 1 tracing with mild variable decels resolving with position changes.',
-        concerns: 'Watch for cord compression with pushing. Mild variables resolving - continue current management. Adequate descent with pushing.',
-        plan: 'Continue coached pushing with contractions. Anticipate delivery within 1-2 hours. Vacuum available if needed for prolonged second stage.',
-        babyStatus: 'FHR baseline 145, moderate variability, mild variable decels with pushing - recovering well between contractions.'
+        summary: 'G1P0 at 40w1d in spontaneous labor, now complete and pushing x 45 minutes. Good descent with contractions. SROM at 0615 with clear fluid. Epidural in place, effective.',
+        concerns: 'Mild variable decels with pushing - resolving with position changes. Watch for cord compression. May need operative delivery if prolonged second stage (nullip >3h with epidural).',
+        plan: 'Continue coached pushing with contractions. Good fetal descent noted. Anticipate delivery within 1-2 hours. Vacuum and forceps available if needed.',
+        babyStatus: 'FHR baseline 145, moderate variability, mild variable decels with pushing - recovering well between contractions. Category 1 tracing at baseline.'
       }
     },
     'rachel-t': {
@@ -19201,17 +19983,22 @@ ${content.innerHTML}
       room: '0879-01',
       mrn: 'NWM-482951',
       age: '31y',
-      gtpal: 'G2P1001',
+      gtpal: 'G2P2002',
       ga: '38w5d',
       bmi: 'BMI 24.3',
       bloodType: 'O NEG',
+      provider: 'Dr. A. Watters, MD',
       providers: 'Sarah L., RN · Dr. A. Watters, MD (Attending)',
+      practice: 'Midwest OB/GYN',
+      registeredAt: 'Today 4:00 AM',
       status: 'status-delivered-cs',
       stage: 'Postpartum',
       mode: 'C/S Delivery',
       modeColor: '#8b5cf6',
       timeSinceReg: 'Delivered 2h ago',
       condition: 'Primary cesarean - arrest of dilation',
+      indication: 'Primary cesarean - arrest of dilation at 7cm x 4h',
+      convertedToCS: true,
       etfd: 'N/A',
       etd: 'Delivered',
       showPree: false,
@@ -19220,11 +20007,108 @@ ${content.innerHTML}
       vitals: { bp: '118/72', hr: '78', temp: '98.6', rr: '16', spo2: '100' },
       gbs: 'Negative',
       gbsClass: 'negative',
+      gbsDate: '02/25/26',
       cervix: 'C/S',
-      cervixHistory: [{ time: 'Delivery', exam: 'Primary C/S @ 9:15 AM' }],
-      labs: { wbc: '13.2', hgb: '9.8', hct: '29', plt: '165' },
+      cervixHistory: [
+        { time: 'Today 9:15 AM', exam: 'Primary C/S - Arrested at 7/100/0' },
+        { time: 'Today 5:00 AM', exam: '7/100/0 (no change x 4h)' },
+        { time: 'Today 1:00 AM', exam: '7/90/0' },
+        { time: 'Yesterday 9:00 PM', exam: '5/80/-1' }
+      ],
+      labs: {
+        wbc: '13.2', wbcPrev: '9.4', wbcPrevDate: 'Admission',
+        hgb: '9.8', hgbPrev: '11.8', hgbPrevDate: 'Admission',
+        hct: '29', hctPrev: '35',
+        plt: '165', pltPrev: '205', pltPrevDate: 'Admission',
+        pt: '11.2', inr: '1.05', ptt: '32', fibrinogen: '365',
+        tsDate: 'Today 4:15 AM'
+      },
       fhr: { baseline: 'N/A', variability: 'N/A', accels: 'N/A', decels: 'N/A' },
-      delivery: { type: 'Primary C/S', time: '9:15 AM', ebl: '800 mL', infant: 'Boy, 3650g', apgar: '8/9' }
+      epidural: true,
+      epiduralTime: '10:30 PM (Yesterday)',
+      rom: { status: 'AROM', time: '8:00 PM (Yesterday)', color: 'Clear' },
+      pitocin: 20,
+      oxytocinStartTime: 'Yesterday 6:00 PM',
+      oxytocinDuration: '15h',
+      admitCervix: '3/60/-2',
+      admitReason: 'Spontaneous labor',
+      arrestReason: 'Arrested at 7cm/100%/0 station for 4 hours with adequate contractions despite max Pitocin',
+      decisionToIncision: 'Decision to incision: 45 min',
+      csType: 'Primary Low Transverse Cesarean Section',
+      csIndication: 'Arrest of dilation at 7cm x 4h despite adequate contractions',
+      uterineIncision: 'Low transverse',
+      ebl: 800,
+      qbl: 800,
+      delivery: {
+        type: 'Primary C/S',
+        time: '9:15 AM',
+        sex: 'Male',
+        weight: '3650g',
+        apgar: '8/9',
+        ebl: '800 mL',
+        infant: 'Boy, 3650g'
+      },
+      postDeliveryMeds: {
+        oxytocin: { dose: '20u / 500mL LR', started: '9:20 AM', rate: '125 mL/hr' },
+        pain: [
+          { drug: 'Ketorolac', dose: '30mg IV q6h', indication: 'post-op pain', lastDose: '9:30 AM' },
+          { drug: 'Acetaminophen', dose: '1000mg PO q6h', indication: 'pain', lastDose: '—' }
+        ],
+        nausea: { drug: 'Ondansetron', dose: '4mg IV PRN', lastDose: '9:45 AM' }
+      },
+      postDeliveryInterventions: {
+        uterotonics: [
+          { drug: 'Oxytocin', dose: '20 units in 500mL LR', route: 'IV infusion', time: '9:20 AM', indication: 'Routine 3rd stage' }
+        ],
+        bloodProducts: [],
+        procedures: []
+      },
+      pphRisk: 'Medium',
+      allergies: 'NKDA',
+      medicalHistory: 'None significant',
+      surgicalHistory: 'None prior to this admission',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy',
+      homeMeds: 'Prenatal vitamin daily',
+      ivSite: '18G · L AC',
+      ivSite2: '20G · R hand',
+      ivPlacedAt: 'Yesterday 4:30 PM',
+      ivPlaced2: 'Today 4:00 AM (pre-op)',
+      ivFluids: 'LR 1000mL + Pitocin 20u',
+      ivRate: '125 mL/hr',
+      foleyStatus: 'Placed in OR · draining clear yellow · 150mL since surgery',
+      io: {
+        oralLast: 'NPO', oralIntake: 0, oral24h: 0, oralTotal: 0,
+        ivLast: 500, ivIntake: 1250, iv24h: 3000, ivTotal: 3500,
+        intakeLast: 500, intakeShift: 1250, intake24h: 3000, intakeTotal: 3500,
+        urineLast: 0, urineShift: 150, urine24h: 1200, urineTotal: 1350,
+        outputLast: 0, outputShift: 950, output24h: 2000, outputTotal: 2150,
+        netLast: '+500', netShift: '+300', net24h: '+1000', netTotal: '+1350'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'O NEG' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-10' },
+        flu: { status: 'Given', date: '2025-10-05' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-08' },
+        rhogam: { status: 'Given 28w', date: '2025-11-10', needsPostpartum: true }
+      },
+      handoff: {
+        summary: 'G2P2 at 38w5d s/p primary cesarean for arrest of dilation at 7cm x 4h. Uncomplicated surgery, EBL 800mL. Baby boy 3650g with Apgars 8/9, in room with mom. Patient comfortable with multimodal pain management.',
+        concerns: 'Rh-negative - needs RhoGAM within 72h of delivery. Monitor for post-op infection, bleeding. Early ambulation tonight. Incentive spirometry q1h while awake.',
+        plan: 'Routine post-cesarean care. Foley out tomorrow AM. Advance diet as tolerated. RhoGAM 300mcg IM before discharge. Discharge anticipated POD 2-3.',
+        babyStatus: 'Healthy newborn male, 3650g, Apgar 8/9, skin-to-skin completed, breastfeeding initiated.'
+      }
     },
     'samantha': {
       name: 'Samantha Davis',
@@ -19260,17 +20144,21 @@ ${content.innerHTML}
       room: '0885-01',
       mrn: 'NWM-629481',
       age: '33y',
-      gtpal: 'G3P2002',
+      gtpal: 'G3P3003',
       ga: '39w1d',
       bmi: 'BMI 27.4',
       bloodType: 'AB POS',
+      provider: 'Dr. A. Watters, MD',
       providers: 'Maria R., RN · Dr. A. Watters, MD (Attending)',
+      practice: 'Chicago Maternal Care',
+      registeredAt: 'Today 3:00 AM',
       status: 'status-delivered-vag',
       stage: 'Postpartum',
       mode: 'Vaginal Delivery',
       modeColor: '#10b981',
       timeSinceReg: 'Delivered 4h ago',
       condition: 'Spontaneous vaginal delivery',
+      indication: 'Spontaneous labor at term',
       etfd: 'N/A',
       etd: 'Delivered',
       showPree: false,
@@ -19279,28 +20167,121 @@ ${content.innerHTML}
       vitals: { bp: '112/68', hr: '72', temp: '98.2', rr: '14', spo2: '100' },
       gbs: 'Positive',
       gbsClass: 'positive',
+      gbsDate: '02/28/26',
+      antibiotics: 'Penicillin G - completed (3 doses)',
       cervix: 'NSVD',
-      cervixHistory: [{ time: 'Delivery', exam: 'NSVD @ 7:30 AM' }],
-      labs: { wbc: '11.6', hgb: '10.4', hct: '31', plt: '182' },
+      cervixHistory: [
+        { time: 'Today 7:30 AM', exam: 'NSVD - Delivered' },
+        { time: 'Today 6:45 AM', exam: '10/100/+2 - Complete, pushing' },
+        { time: 'Today 5:00 AM', exam: '8/100/+1' },
+        { time: 'Today 3:30 AM', exam: '6/80/0 (Admission)' }
+      ],
+      labs: {
+        wbc: '11.6', wbcPrev: '9.2', wbcPrevDate: 'Admission',
+        hgb: '10.4', hgbPrev: '11.8', hgbPrevDate: 'Admission',
+        hct: '31', hctPrev: '35',
+        plt: '182', pltPrev: '215', pltPrevDate: 'Admission',
+        pt: '10.6', inr: '1.0', ptt: '28', fibrinogen: '410',
+        tsDate: 'Today 3:15 AM'
+      },
       fhr: { baseline: 'N/A', variability: 'N/A', accels: 'N/A', decels: 'N/A' },
-      delivery: { type: 'NSVD', time: '7:30 AM', ebl: '400 mL', infant: 'Girl, 3180g', apgar: '9/9' }
+      epidural: true,
+      epiduralTime: '4:15 AM',
+      rom: { status: 'SROM', time: '3:00 AM', color: 'Clear' },
+      pitocin: 0,
+      calcQbl: 400,
+      qbl: 400,
+      postDeliveryQbl: 'Est. ~50 mL',
+      delivery: {
+        type: 'NSVD',
+        time: '7:30 AM',
+        sex: 'Female',
+        weight: '3180g',
+        apgar: '9/9',
+        ebl: '400 mL',
+        infant: 'Girl, 3180g'
+      },
+      lacerations: 'Second degree perineal laceration',
+      sutureType: '3-0 Vicryl',
+      postDeliveryMeds: {
+        oxytocin: { dose: '20u / 500mL LR', started: '7:35 AM', rate: '125 mL/hr' },
+        pain: [
+          { drug: 'Ibuprofen', dose: '600mg PO q6h', indication: 'pain', lastDose: '8:00 AM' },
+          { drug: 'Acetaminophen', dose: '1000mg PO q6h PRN', indication: 'breakthrough pain', lastDose: '—' }
+        ]
+      },
+      postDeliveryInterventions: {
+        uterotonics: [
+          { drug: 'Oxytocin', dose: '20 units in 500mL LR', route: 'IV infusion', time: '7:35 AM', indication: 'Routine 3rd stage' }
+        ],
+        bloodProducts: [],
+        procedures: []
+      },
+      pphRisk: 'Low',
+      allergies: 'NKDA',
+      medicalHistory: 'G3P3 · Two prior uncomplicated vaginal deliveries',
+      surgicalHistory: 'None',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy',
+      homeMeds: 'Prenatal vitamin daily',
+      ivSite: '20G · L hand',
+      ivPlacedAt: 'Today 3:15 AM',
+      ivFluids: 'LR 1000mL + Pitocin 20u',
+      ivRate: '125 mL/hr',
+      foleyStatus: 'Removed after delivery · voiding spontaneously',
+      io: {
+        oralLast: 'Ice chips', oralIntake: 120, oral24h: 180, oralTotal: 180,
+        ivLast: 250, ivIntake: 875, iv24h: 1125, ivTotal: 1125,
+        intakeLast: 250, intakeShift: 995, intake24h: 1305, intakeTotal: 1305,
+        urineLast: 0, urineShift: 450, urine24h: 650, urineTotal: 650,
+        outputLast: 400, outputShift: 850, output24h: 1050, outputTotal: 1050,
+        netLast: '-150', netShift: '+145', net24h: '+255', netTotal: '+255'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'AB POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-12' },
+        flu: { status: 'Given', date: '2025-09-28' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-10' }
+      },
+      handoff: {
+        summary: 'G3P3 at 39w1d s/p uncomplicated NSVD. Second degree perineal laceration repaired with 3-0 Vicryl. Baby girl 3180g with Apgars 9/9, breastfeeding well. GBS+ - completed 3 doses of Penicillin G.',
+        concerns: 'Monitor for postpartum hemorrhage (fundal checks q15min x 1h, then q30min x 2h). Perineal ice and comfort measures. Watch for urinary retention post-epidural.',
+        plan: 'Routine postpartum care. IV to saline lock after Pitocin complete. Encourage ambulation, breastfeeding support. Anticipate discharge tomorrow if stable.',
+        babyStatus: 'Healthy newborn female, 3180g, Apgar 9/9, skin-to-skin completed, breastfeeding well, passed meconium.'
+      }
     },
     'amanda-c': {
       name: 'Amanda Chen',
       room: '0880-01',
       mrn: 'NWM-738295',
       age: '35y',
-      gtpal: 'G2P1001',
+      gtpal: 'G2P2002',
       ga: '37w4d',
       bmi: 'BMI 29.6',
       bloodType: 'O POS',
+      provider: 'Dr. A. Watters, MD',
       providers: 'Lisa M., RN · Dr. A. Watters, MD (Attending)',
+      practice: 'Lakeside Women\'s Health',
+      registeredAt: 'Today 4:30 AM',
       status: 'status-delivered-cs',
       stage: 'Postpartum',
       mode: 'C/S Delivery',
       modeColor: '#8b5cf6',
       timeSinceReg: 'Delivered 6h ago',
       condition: 'Repeat cesarean section',
+      indication: 'Scheduled repeat cesarean section · Prior LTCS 2022',
+      priorCs: true,
       etfd: 'N/A',
       etd: 'Delivered',
       showPree: false,
@@ -19309,20 +20290,99 @@ ${content.innerHTML}
       vitals: { bp: '124/78', hr: '76', temp: '98.8', rr: '16', spo2: '99' },
       gbs: 'Negative',
       gbsClass: 'negative',
+      gbsDate: '02/26/26',
       cervix: 'Repeat C/S',
-      cervixHistory: [{ time: 'Delivery', exam: 'Repeat C/S @ 5:45 AM' }],
-      labs: { wbc: '12.4', hgb: '10.1', hct: '30', plt: '172' },
+      cervixHistory: [{ time: 'Today 5:45 AM', exam: 'Scheduled Repeat C/S' }],
+      labs: {
+        wbc: '12.4', wbcPrev: '8.8', wbcPrevDate: 'Yesterday',
+        hgb: '10.1', hgbPrev: '12.0', hgbPrevDate: 'Yesterday',
+        hct: '30', hctPrev: '36',
+        plt: '172', pltPrev: '198', pltPrevDate: 'Yesterday',
+        pt: '10.8', inr: '1.02', ptt: '30', fibrinogen: '395',
+        tsDate: 'Today 4:45 AM'
+      },
       fhr: { baseline: 'N/A', variability: 'N/A', accels: 'N/A', decels: 'N/A' },
-      delivery: { type: 'Repeat C/S', time: '5:45 AM', ebl: '750 mL', infant: 'Boy, 3420g', apgar: '8/9' },
-      allergies: 'NKDA',
-      rom: { status: 'N/A (C/S)', time: '', color: '' },
       epidural: false,
-      antibiotics: 'Ancef 2g IV',
+      rom: { status: 'N/A (C/S)', time: '', color: '' },
+      csType: 'Scheduled Repeat Low Transverse Cesarean Section',
+      csIndication: 'Elective repeat cesarean - prior LTCS 2022',
+      uterineIncision: 'Low transverse (existing scar)',
+      ebl: 750,
+      qbl: 750,
+      delivery: {
+        type: 'Repeat C/S',
+        time: '5:45 AM',
+        sex: 'Male',
+        weight: '3420g',
+        apgar: '8/9',
+        ebl: '750 mL',
+        infant: 'Boy, 3420g'
+      },
+      postDeliveryMeds: {
+        oxytocin: { dose: '20u / 500mL LR', started: '5:50 AM', rate: '125 mL/hr' },
+        pain: [
+          { drug: 'Ketorolac', dose: '30mg IV q6h', indication: 'post-op pain', lastDose: '6:00 AM' },
+          { drug: 'Oxycodone', dose: '5mg PO q4h PRN', indication: 'breakthrough pain', lastDose: '10:00 AM' },
+          { drug: 'Acetaminophen', dose: '1000mg PO q6h', indication: 'multimodal', lastDose: '8:00 AM' }
+        ],
+        nausea: { drug: 'Ondansetron', dose: '4mg IV PRN', lastDose: '6:30 AM' },
+        other: [
+          { drug: 'Enoxaparin', dose: '40mg SQ daily', indication: 'DVT prophylaxis (starts tonight)' }
+        ]
+      },
+      postDeliveryInterventions: {
+        uterotonics: [
+          { drug: 'Oxytocin', dose: '20 units in 500mL LR', route: 'IV infusion', time: '5:50 AM', indication: 'Routine 3rd stage' }
+        ],
+        bloodProducts: [],
+        procedures: []
+      },
+      antibiotics: 'Ancef 2g IV (given at incision)',
+      antibioticDose: '2g IV x1 (prophylaxis)',
+      pphRisk: 'Low',
+      allergies: 'NKDA',
+      medicalHistory: 'Prior cesarean section 2022 · Hypothyroidism (on levothyroxine)',
+      surgicalHistory: 'Prior cesarean section (2022) - uncomplicated low transverse',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy · Works in marketing',
+      homeMeds: 'Prenatal vitamin daily · Levothyroxine 75mcg daily',
+      ivSite: '18G · L AC',
+      ivSite2: '20G · R hand',
+      ivPlacedAt: 'Today 4:45 AM',
+      ivPlaced2: 'In OR',
+      ivFluids: 'LR 1000mL + Pitocin 20u',
+      ivRate: '125 mL/hr',
+      foleyStatus: 'Placed in OR · draining clear yellow · 350mL since surgery',
+      io: {
+        oralLast: 'NPO', oralIntake: 60, oral24h: 60, oralTotal: 60,
+        ivLast: 750, ivIntake: 1500, iv24h: 2250, ivTotal: 2250,
+        intakeLast: 750, intakeShift: 1560, intake24h: 2310, intakeTotal: 2310,
+        urineLast: 0, urineShift: 350, urine24h: 650, urineTotal: 650,
+        outputLast: 750, outputShift: 1100, output24h: 1400, outputTotal: 1400,
+        netLast: '0', netShift: '+460', net24h: '+910', netTotal: '+910'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'O POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-05' },
+        flu: { status: 'Given', date: '2025-10-10' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-03' }
+      },
       handoff: {
-        summary: 'G2P1 at 37w4d s/p scheduled repeat cesarean section without complications. EBL 750 mL, hemostasis achieved. Baby boy 3420g with Apgar 8/9, in room with mom, breastfeeding well.',
-        concerns: 'Monitor for signs of post-op infection, adequate pain control. Encourage early ambulation and incentive spirometry. Watch for post-op ileus.',
-        plan: 'Routine post-cesarean care. Foley removal tomorrow AM. Advance diet as tolerated. DVT prophylaxis with SCDs and early ambulation. D/C anticipated POD 2-3.',
-        babyStatus: 'Healthy newborn, skin-to-skin completed, first breastfeed successful, routine newborn care.'
+        summary: 'G2P2 at 37w4d s/p scheduled repeat cesarean section without complications. EBL 750 mL, hemostasis achieved. Minimal adhesions from prior surgery. Baby boy 3420g with Apgar 8/9, in room with mom, breastfeeding well.',
+        concerns: 'Monitor for signs of post-op infection (temp, incision). Adequate pain control - currently well controlled. Encourage early ambulation and incentive spirometry q1h while awake. Watch for post-op ileus - assess bowel sounds.',
+        plan: 'Routine post-cesarean care. Foley removal tomorrow AM. Advance diet to regular as tolerated. DVT prophylaxis with SCDs now, start Lovenox 40mg SQ tonight. Discharge anticipated POD 2-3.',
+        babyStatus: 'Healthy newborn male, 3420g, Apgar 8/9, skin-to-skin completed, breastfeeding initiated and going well, passed meconium.'
       }
     },
     'christina-l': {
@@ -19524,13 +20584,17 @@ ${content.innerHTML}
       ga: '39w1d',
       bmi: 'BMI 25.4',
       bloodType: 'O POS',
+      provider: 'Dr. A. Watters, MD',
       providers: 'Sarah M., RN · Dr. A. Watters, MD',
+      practice: 'Northwestern Medical Group',
+      registeredAt: 'Yesterday 8:00 PM',
       status: 'status-postpartum',
       stage: 'Postpartum',
       mode: 'PPD 0',
       modeColor: '#c04001',
       timeSinceReg: 'Delivered Today 3:28 AM',
       condition: 'NSVD - Uncomplicated',
+      indication: 'Spontaneous labor · Uncomplicated NSVD',
       etfd: 'N/A',
       etd: 'Delivered',
       showPree: false,
@@ -19539,11 +20603,92 @@ ${content.innerHTML}
       vitals: { bp: '118/72', hr: '74', temp: '98.4', rr: '14', spo2: '99' },
       gbs: 'Negative',
       gbsClass: 'negative',
+      gbsDate: '02/24/26',
       cervix: 'Postpartum',
       cervixHistory: [],
-      labs: { wbc: '10.8', hgb: '11.2', hct: '33', plt: '195' },
+      labs: {
+        wbc: '10.8', wbcPrev: '8.5', wbcPrevDate: 'Admission',
+        hgb: '11.2', hgbPrev: '12.2', hgbPrevDate: 'Admission',
+        hct: '33', hctPrev: '36',
+        plt: '195', pltPrev: '218', pltPrevDate: 'Admission',
+        pt: '10.4', inr: '0.99', ptt: '28', fibrinogen: '390',
+        tsDate: 'Yesterday 8:15 PM'
+      },
       fhr: { baseline: 'N/A', variability: 'N/A', accels: 'N/A', decels: 'N/A' },
-      delivery: { type: 'NSVD', time: 'Today 3:28 AM', ebl: '350 mL', infant: 'Girl, 2890g', apgar: '9/9' }
+      rom: { status: 'SROM', time: '1:00 AM', color: 'Clear' },
+      epidural: true,
+      epiduralTime: '11:30 PM (Yesterday)',
+      calcQbl: 350,
+      qbl: 350,
+      postDeliveryQbl: 'Est. ~30 mL',
+      delivery: {
+        type: 'NSVD',
+        time: 'Today 3:28 AM',
+        sex: 'Female',
+        weight: '2890g',
+        apgar: '9/9',
+        ebl: '350 mL',
+        infant: 'Girl, 2890g'
+      },
+      lacerations: 'First degree perineal laceration',
+      sutureType: '3-0 Vicryl Rapide',
+      postDeliveryMeds: {
+        oxytocin: { dose: '20u / 500mL LR', started: '3:35 AM', rate: '125 mL/hr (complete)' },
+        pain: [
+          { drug: 'Ibuprofen', dose: '600mg PO q6h', indication: 'pain', lastDose: '9:00 AM' },
+          { drug: 'Acetaminophen', dose: '1000mg PO q6h PRN', indication: 'breakthrough', lastDose: '—' }
+        ]
+      },
+      postDeliveryInterventions: {
+        uterotonics: [
+          { drug: 'Oxytocin', dose: '20 units in 500mL LR', route: 'IV infusion', time: '3:35 AM', indication: 'Routine 3rd stage' }
+        ],
+        bloodProducts: [],
+        procedures: []
+      },
+      pphRisk: 'Low',
+      allergies: 'NKDA',
+      medicalHistory: 'None significant · Primigravida',
+      surgicalHistory: 'None',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy · Works as accountant',
+      homeMeds: 'Prenatal vitamin daily',
+      ivSite: '20G · L hand',
+      ivPlacedAt: 'Yesterday 8:15 PM',
+      ivFluids: 'Saline lock (Pitocin complete)',
+      ivRate: 'Saline lock',
+      foleyStatus: 'Removed · voiding spontaneously · first void 275mL',
+      io: {
+        oralLast: 'Regular diet', oralIntake: 480, oral24h: 720, oralTotal: 720,
+        ivLast: 0, ivIntake: 250, iv24h: 1250, ivTotal: 1250,
+        intakeLast: 480, intakeShift: 730, intake24h: 1970, intakeTotal: 1970,
+        urineLast: 0, urineShift: 650, urine24h: 1100, urineTotal: 1100,
+        outputLast: 350, outputShift: 1000, output24h: 1450, outputTotal: 1450,
+        netLast: '+130', netShift: '-270', net24h: '+520', netTotal: '+520'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'O POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-08' },
+        flu: { status: 'Given', date: '2025-09-25' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-12-06' }
+      },
+      handoff: {
+        summary: 'G1P1 at 39w1d, PPD 0 s/p uncomplicated NSVD. First degree perineal lac repaired with 3-0 Vicryl Rapide. QBL 350mL. Baby girl 2890g, Apgars 9/9, breastfeeding well.',
+        concerns: 'Monitor fundal firmness q4h. Perineal care and comfort measures. Watch for urinary retention - first void documented 275mL. Support breastfeeding.',
+        plan: 'Routine postpartum care. IV to saline lock, Pitocin complete. Regular diet, ambulating. Anticipate discharge tomorrow if stable. Follow-up 4-6 weeks.',
+        babyStatus: 'Healthy newborn female, 2890g, Apgar 9/9, breastfeeding well, passed meconium, jaundice screening pending.'
+      }
     },
     'melissa': {
       name: 'Melissa Park',
@@ -19614,13 +20759,18 @@ ${content.innerHTML}
       ga: '38w1d',
       bmi: 'BMI 29.4',
       bloodType: 'O NEG',
+      provider: 'Dr. M. Torres, MD',
       providers: 'Diana K., RN · Dr. M. Torres, MD',
+      practice: 'Chicago Maternal Care',
+      registeredAt: 'Today 5:00 AM',
       status: 'status-postpartum',
       stage: 'Postpartum',
       mode: 'POD 0',
       modeColor: '#c04001',
       timeSinceReg: 'Delivered Today 6:45 AM',
       condition: 'Repeat C/S - Uncomplicated',
+      indication: 'Repeat cesarean section · Prior LTCS x2',
+      priorCs: true,
       etfd: 'N/A',
       etd: 'Delivered',
       showPree: false,
@@ -19629,11 +20779,98 @@ ${content.innerHTML}
       vitals: { bp: '124/78', hr: '82', temp: '98.8', rr: '16', spo2: '98' },
       gbs: 'Positive',
       gbsClass: 'positive',
+      gbsDate: '02/20/26',
+      antibiotics: 'Ancef 2g IV (prophylaxis at incision)',
       cervix: 'C/S',
       cervixHistory: [],
-      labs: { wbc: '12.6', hgb: '10.2', hct: '30', plt: '175' },
+      labs: {
+        wbc: '12.6', wbcPrev: '9.2', wbcPrevDate: 'Yesterday',
+        hgb: '10.2', hgbPrev: '11.8', hgbPrevDate: 'Yesterday',
+        hct: '30', hctPrev: '35',
+        plt: '175', pltPrev: '202', pltPrevDate: 'Yesterday',
+        pt: '11.0', inr: '1.04', ptt: '31', fibrinogen: '375',
+        tsDate: 'Today 5:15 AM'
+      },
       fhr: { baseline: 'N/A', variability: 'N/A', accels: 'N/A', decels: 'N/A' },
-      delivery: { type: 'Repeat C/S', time: 'Today 6:45 AM', ebl: '850 mL', infant: 'Boy, 3380g', apgar: '8/9' }
+      csType: 'Scheduled Repeat Low Transverse Cesarean Section',
+      csIndication: 'Elective repeat cesarean - prior LTCS x2',
+      uterineIncision: 'Low transverse',
+      ebl: 850,
+      qbl: 850,
+      delivery: {
+        type: 'Repeat C/S',
+        time: 'Today 6:45 AM',
+        sex: 'Male',
+        weight: '3380g',
+        apgar: '8/9',
+        ebl: '850 mL',
+        infant: 'Boy, 3380g'
+      },
+      postDeliveryMeds: {
+        oxytocin: { dose: '20u / 500mL LR', started: '6:50 AM', rate: '125 mL/hr' },
+        pain: [
+          { drug: 'Ketorolac', dose: '30mg IV q6h', indication: 'post-op pain', lastDose: '7:00 AM' },
+          { drug: 'Oxycodone', dose: '5mg PO q4h PRN', indication: 'breakthrough pain', lastDose: '—' },
+          { drug: 'Acetaminophen', dose: '1000mg PO q6h', indication: 'multimodal', lastDose: '9:00 AM' }
+        ],
+        nausea: { drug: 'Ondansetron', dose: '4mg IV PRN', lastDose: '7:15 AM' },
+        other: [
+          { drug: 'Enoxaparin', dose: '40mg SQ daily', indication: 'DVT prophylaxis (starts tonight)' }
+        ]
+      },
+      postDeliveryInterventions: {
+        uterotonics: [
+          { drug: 'Oxytocin', dose: '20 units in 500mL LR', route: 'IV infusion', time: '6:50 AM', indication: 'Routine 3rd stage' }
+        ],
+        bloodProducts: [],
+        procedures: []
+      },
+      pphRisk: 'Medium',
+      allergies: 'NKDA',
+      medicalHistory: 'Prior cesarean sections x2 (2019, 2021)',
+      surgicalHistory: 'Prior cesarean section x2 - low transverse incisions',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy · Stay-at-home mom',
+      homeMeds: 'Prenatal vitamin daily · Iron supplement',
+      ivSite: '18G · L AC',
+      ivSite2: '20G · R hand',
+      ivPlacedAt: 'Today 5:30 AM',
+      ivPlaced2: 'In OR',
+      ivFluids: 'LR 1000mL + Pitocin 20u',
+      ivRate: '125 mL/hr',
+      foleyStatus: 'Placed in OR · draining clear yellow · 200mL since surgery',
+      io: {
+        oralLast: 'NPO', oralIntake: 30, oral24h: 30, oralTotal: 30,
+        ivLast: 500, ivIntake: 875, iv24h: 1375, ivTotal: 1375,
+        intakeLast: 500, intakeShift: 905, intake24h: 1405, intakeTotal: 1405,
+        urineLast: 0, urineShift: 200, urine24h: 400, urineTotal: 400,
+        outputLast: 850, outputShift: 1050, output24h: 1250, outputTotal: 1250,
+        netLast: '-350', netShift: '-145', net24h: '+155', netTotal: '+155'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'O NEG' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-11-02' },
+        flu: { status: 'Given', date: '2025-10-08' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-11-30' },
+        rhogam: { status: 'Given 28w', date: '2025-11-02', needsPostpartum: true }
+      },
+      handoff: {
+        summary: 'G3P3 at 38w1d, POD 0 s/p scheduled repeat cesarean. Uncomplicated surgery, EBL 850mL. Baby boy 3380g, Apgars 8/9, breastfeeding initiated.',
+        concerns: '⚠️ Rh-negative - RhoGAM needed within 72h. GBS+ - completed prophylaxis. Monitor for post-op bleeding, infection. Early ambulation tonight. IS q1h while awake.',
+        plan: 'Routine post-cesarean care. Foley out tomorrow AM. Diet advance as tolerated. DVT prophylaxis - SCDs now, Lovenox 40mg SQ starting tonight. RhoGAM 300mcg IM before discharge. D/C anticipated POD 2-3.',
+        babyStatus: 'Healthy newborn male, 3380g, Apgar 8/9, skin-to-skin completed, breastfeeding initiated.'
+      }
     },
     'jessica-m': {
       name: 'Jessica Martinez',
@@ -19704,13 +20941,19 @@ ${content.innerHTML}
       ga: '38w2d',
       bmi: 'BMI 28.5',
       bloodType: 'O POS',
+      provider: 'Dr. A. Watters, MD',
       providers: 'Kelly L., RN · Dr. A. Watters, MD',
+      practice: 'Prentice Amb',
+      registeredAt: '2 days ago 9:00 AM',
       status: 'status-postpartum',
       stage: 'Postpartum',
       mode: 'POD 2',
+      pod: 2,
       modeColor: '#c04001',
       timeSinceReg: 'Delivered 2 days ago 11:30 AM',
-      condition: 'Repeat C/S - Uncomplicated',
+      condition: 'Repeat C/S - PPH requiring transfusion',
+      indication: 'Repeat cesarean · PPH with transfusion',
+      priorCs: true,
       etfd: 'N/A',
       etd: 'Delivered',
       showPree: false,
@@ -19719,11 +20962,105 @@ ${content.innerHTML}
       vitals: { bp: '118/72', hr: '76', temp: '98.6', rr: '14', spo2: '99' },
       gbs: 'Negative',
       gbsClass: 'negative',
+      gbsDate: '02/15/26',
       cervix: 'C/S',
       cervixHistory: [],
-      labs: { wbc: '10.6', hgb: '11.4', hct: '34', plt: '198' },
+      labs: {
+        wbc: '10.6', wbcPrev: '14.2', wbcPrevDate: 'POD 0',
+        hgb: '9.8', hgbPrev: '7.2', hgbPrevDate: 'Post-transfusion',
+        hct: '29', hctPrev: '22',
+        plt: '168', pltPrev: '145', pltPrevDate: 'POD 0',
+        pt: '11.4', inr: '1.08', ptt: '32', fibrinogen: '285',
+        tsDate: 'Today 6:00 AM'
+      },
       fhr: { baseline: 'N/A', variability: 'N/A', accels: 'N/A', decels: 'N/A' },
-      delivery: { type: 'Repeat C/S', time: '2 days ago 11:30 AM', ebl: '720 mL', infant: 'Boy, 3650g', apgar: '8/9' }
+      csType: 'Repeat Low Transverse Cesarean Section',
+      csIndication: 'Elective repeat cesarean · Prior LTCS',
+      uterineIncision: 'Low transverse',
+      ebl: 1400,
+      qbl: 1400,
+      delivery: {
+        type: 'Repeat C/S',
+        time: '2 days ago 11:30 AM',
+        sex: 'Male',
+        weight: '3650g',
+        apgar: '8/9',
+        ebl: '1400 mL',
+        infant: 'Boy, 3650g'
+      },
+      postDeliveryMeds: {
+        oxytocin: { dose: '20u / 500mL LR', started: '11:35 AM (2 days ago)', rate: 'Complete' },
+        pain: [
+          { drug: 'Ibuprofen', dose: '600mg PO q6h', indication: 'pain', lastDose: '8:00 AM' },
+          { drug: 'Oxycodone', dose: '5mg PO q4h PRN', indication: 'breakthrough', lastDose: 'Yesterday 10:00 PM' },
+          { drug: 'Acetaminophen', dose: '1000mg PO q6h', indication: 'multimodal', lastDose: '6:00 AM' }
+        ],
+        other: [
+          { drug: 'Enoxaparin', dose: '40mg SQ daily', indication: 'DVT prophylaxis' },
+          { drug: 'Ferrous sulfate', dose: '325mg PO TID', indication: 'iron replacement post-transfusion' }
+        ]
+      },
+      postDeliveryInterventions: {
+        uterotonics: [
+          { drug: 'Oxytocin', dose: '20 units in 500mL LR', route: 'IV infusion', time: '11:35 AM', indication: 'Routine 3rd stage' },
+          { drug: 'Methergine', dose: '0.2mg', route: 'IM', time: '11:50 AM', indication: 'Uterine atony' },
+          { drug: 'Hemabate', dose: '250mcg', route: 'IM', time: '12:05 PM', indication: 'Continued atony' }
+        ],
+        bloodProducts: [
+          { product: 'pRBC', units: 2, time: '1:00 PM (2 days ago)' }
+        ],
+        procedures: [
+          { name: 'Bimanual massage', outcome: 'Performed' },
+          { name: 'Bakri balloon', outcome: 'Placed, 350mL - removed POD 1' }
+        ]
+      },
+      transfusion: true,
+      pphRisk: 'High',
+      allergies: 'Penicillin (rash)',
+      allergyList: [
+        { drug: 'Penicillin', reaction: 'Rash' }
+      ],
+      medicalHistory: 'Prior cesarean section (2022) · Postpartum hemorrhage this admission',
+      surgicalHistory: 'Prior cesarean section (2022) - uncomplicated',
+      socialHistory: 'Non-smoker · No alcohol or substances during pregnancy',
+      homeMeds: 'Prenatal vitamin daily',
+      ivSite: 'Saline lock · L AC',
+      ivPlacedAt: '2 days ago',
+      ivFluids: 'Saline lock',
+      ivRate: 'PRN',
+      foleyStatus: 'Removed POD 1 · voiding spontaneously',
+      io: {
+        oralLast: 'Regular diet', oralIntake: 1200, oral24h: 2400, oralTotal: 3600,
+        ivLast: 0, ivIntake: 0, iv24h: 500, ivTotal: 4500,
+        intakeLast: 1200, intakeShift: 1200, intake24h: 2900, intakeTotal: 8100,
+        urineLast: 500, urineShift: 800, urine24h: 2200, urineTotal: 4800,
+        outputLast: 500, outputShift: 800, output24h: 2200, outputTotal: 6200,
+        netLast: '+700', netShift: '+400', net24h: '+700', netTotal: '+1900'
+      },
+      prenatalLabs: {
+        bloodType: { value: 'O POS' },
+        antibodyScreen: { value: 'Negative' },
+        rubella: { value: 'Immune' },
+        rubeola: { value: 'Immune' },
+        mumps: { value: 'Immune' },
+        hiv: { value: 'Negative' },
+        hepB: { value: 'Negative' },
+        rpr: { value: 'Non-reactive' },
+        gcCt: { value: 'Negative' },
+        varicella: { value: 'Immune' }
+      },
+      immunizations: {
+        tdap: { status: 'Given 28w', date: '2025-10-28' },
+        flu: { status: 'Given', date: '2025-10-15' },
+        covid: { status: 'Up to date' },
+        rsv: { status: 'Given 32w', date: '2025-11-25' }
+      },
+      handoff: {
+        summary: 'G2P2 at 38w2d, POD 2 s/p repeat cesarean complicated by PPH (EBL 1400mL). Required uterotonics escalation (Pit → Methergine → Hemabate), Bakri balloon placement, and 2u pRBC transfusion. Bakri removed POD 1, patient stable since.',
+        concerns: 'Monitor Hgb trend (post-transfusion 9.8 stable). ⚠️ PCN ALLERGY - use Clindamycin if antibiotics needed. Continue iron supplementation. Assess for signs of infection given prolonged surgery.',
+        plan: 'Continue current management. Diet regular, ambulating well. CBC today to monitor Hgb. DVT prophylaxis with Lovenox. Anticipate discharge today if stable. Follow-up 1 week for wound check and 6 weeks postpartum.',
+        babyStatus: 'Healthy newborn male, 3650g, Apgar 8/9, breastfeeding well, jaundice resolved with phototherapy, ready for discharge.'
+      }
     }
   };
 
@@ -23438,7 +24775,48 @@ ${content.innerHTML}
   }
 
   function showEpicIntegrationModal() {
-    document.getElementById('epicIntegrationOverlay').classList.add('open');
+    console.log('showEpicIntegrationModal called');
+    const overlay = document.getElementById('epicIntegrationOverlay');
+    if (!overlay) {
+      console.error('ERROR: epicIntegrationOverlay element not found!');
+      return;
+    }
+
+    // Determine which tour is active
+    const isNurseTour = typeof nurseStep_ !== 'undefined' && nurseStep_ === 2;
+    const isChargeTour = typeof chargeStep_ !== 'undefined' && chargeStep_ === 2;
+    const isNurseOrCharge = isNurseTour || isChargeTour;
+
+    // Get activity items
+    const activityHome = document.getElementById('epicActivityHome');
+    const activityDeliveryNote = document.getElementById('epicActivityDeliveryNote');
+    const activityHandoff = document.getElementById('epicActivityHandoff');
+    const activityViewPatient = document.getElementById('epicActivityViewPatient');
+
+    // Reset all activity items
+    [activityHome, activityDeliveryNote, activityHandoff, activityViewPatient].forEach(item => {
+      if (item) item.classList.remove('active');
+    });
+
+    // Get the body element for nurse-mode class
+    const bodyEl = document.getElementById('epicIntegrationBody');
+
+    if (isNurseOrCharge) {
+      // Nurse/Charge: highlight Birth Model Home + Nursing Handoff
+      if (bodyEl) bodyEl.classList.add('nurse-mode');
+      if (activityHome) activityHome.classList.add('active');
+      if (activityHandoff) activityHandoff.classList.add('active');
+      console.log('Epic Integration modal configured for Nurse/Charge tour');
+    } else {
+      // Clinician/Resident: highlight Birth Model Home + Delivery Note
+      if (bodyEl) bodyEl.classList.remove('nurse-mode');
+      if (activityHome) activityHome.classList.add('active');
+      if (activityDeliveryNote) activityDeliveryNote.classList.add('active');
+      console.log('Epic Integration modal configured for Clinician/Resident tour');
+    }
+
+    overlay.classList.add('open');
+    console.log('Epic Integration modal opened');
   }
 
   function closeEpicIntegrationModal() {
@@ -24239,8 +25617,17 @@ ${content.innerHTML}
     hideSpotlight();
     document.querySelectorAll('#demo-clinician .guide-highlight').forEach(el => el.classList.remove('guide-highlight'));
     document.querySelectorAll('#demo-clinician .tour-clickable').forEach(el => el.classList.remove('tour-clickable'));
-    document.querySelectorAll('#demo-clinician .tour-flash-border').forEach(el => el.classList.remove('tour-flash-border'));
-    document.querySelectorAll('#demo-clinician .tour-flash-inline').forEach(el => el.classList.remove('tour-flash-inline'));
+    // Preserve laceration field flashing during delivery note steps
+    const currentStep = clinicianSteps[clinicianStep_ - 1];
+    const isDeliveryNoteStep = currentStep && currentStep.num >= 40 && currentStep.num <= 43;
+    document.querySelectorAll('#demo-clinician .tour-flash-border').forEach(el => {
+      if (isDeliveryNoteStep && el.id === 'clin-dn-missing-dropdown') return;
+      el.classList.remove('tour-flash-border');
+    });
+    document.querySelectorAll('#demo-clinician .tour-flash-inline').forEach(el => {
+      if (isDeliveryNoteStep && el.dataset.field === 'lacerations') return;
+      el.classList.remove('tour-flash-inline');
+    });
     document.querySelectorAll('#demo-clinician .spotlight-card-active').forEach(el => {
       el.classList.remove('spotlight-card-active');
       el.removeAttribute('data-spotlight');
@@ -24375,8 +25762,18 @@ ${content.innerHTML}
       el.style.animation = ''; // Clear any tour animations
     });
     document.querySelectorAll('#demo-clinician .tour-clickable').forEach(el => el.classList.remove('tour-clickable'));
-    document.querySelectorAll('#demo-clinician .tour-flash-border').forEach(el => el.classList.remove('tour-flash-border'));
-    document.querySelectorAll('#demo-clinician .tour-flash-inline').forEach(el => el.classList.remove('tour-flash-inline'));
+    // Preserve laceration field flashing on delivery note steps (40-43) until user selects a value
+    const isDeliveryNoteStep = step.num >= 40 && step.num <= 43;
+    document.querySelectorAll('#demo-clinician .tour-flash-border').forEach(el => {
+      // Don't remove flash from laceration dropdown during DN steps
+      if (isDeliveryNoteStep && el.id === 'clin-dn-missing-dropdown') return;
+      el.classList.remove('tour-flash-border');
+    });
+    document.querySelectorAll('#demo-clinician .tour-flash-inline').forEach(el => {
+      // Don't remove flash from inline laceration field during DN steps
+      if (isDeliveryNoteStep && el.dataset.field === 'lacerations') return;
+      el.classList.remove('tour-flash-inline');
+    });
     document.querySelectorAll('#demo-clinician .allow-chart-interaction').forEach(el => el.classList.remove('allow-chart-interaction'));
     document.querySelectorAll('#demo-clinician .spotlight-card-active').forEach(el => {
       el.classList.remove('spotlight-card-active');
@@ -24444,6 +25841,20 @@ ${content.innerHTML}
     // Handle delivery note state based on step
     if (step.showDeliveryNoteOnLoad) {
       document.getElementById('deliveryNoteOverlay').classList.add('open');
+      // Ensure laceration field has flashing border during delivery note steps (40-43) until selected
+      if (step.num >= 40 && step.num <= 43) {
+        setTimeout(() => {
+          const dropdown = document.getElementById('clin-dn-missing-dropdown');
+          const inlineField = document.querySelector('.dn-inline-fill-btn[data-field="lacerations"]');
+          // Only add flash if field hasn't been filled (dropdown still has "Laceration Type" text)
+          if (dropdown && dropdown.textContent.includes('Laceration Type')) {
+            dropdown.classList.add('tour-flash-border');
+          }
+          if (inlineField) {
+            inlineField.classList.add('tour-flash-inline');
+          }
+        }, 100);
+      }
     }
 
     // Handle handoff modal state based on step
@@ -25377,8 +26788,8 @@ ${content.innerHTML}
   const residentSteps = [
     {
       num: 1,
-      title: "Training Overview",
-      body: "Welcome to <strong>Resident</strong> training!<br><br><strong>In this tour, you'll learn how to:</strong><br>• View all L&D patients across the floor at a glance<br>• Understand ETFD & ETD predictions<br>• See automated note timers for each patient<br>• Navigate the patient drawer for quick info access<br>• Complete delivery notes in seconds — sent directly to Epic",
+      title: "Why Birth Model?",
+      body: "<strong>Residency is hard enough without drowning in documentation.</strong><br><br>You're running between rooms, trying to keep track of multiple patients, and always behind on notes. By the time you finish charting, you've missed learning opportunities.<br><br>Birth Model shows you <strong>every patient at a glance</strong>, tells you <strong>when deliveries are coming</strong>, and lets you complete delivery notes in <strong>under 30 seconds</strong> — so you can focus on learning, not typing.",
       requiresAction: false,
       isOverview: true
     },
@@ -25393,7 +26804,7 @@ ${content.innerHTML}
     {
       num: 3,
       title: "Your Patient Board",
-      body: "You're viewing <strong>L&D South</strong> — one section of the labor floor. Use the tabs above to switch between sections (L&D North, Triage, OR/Recovery) or view <strong>All L&D</strong> sorted by room.<br><br>Each card shows key clinical information at a glance so you can anticipate deliveries and prioritize care.",
+      body: "You're viewing <strong>L&D South</strong>. Use tabs to switch sections or view <strong>All L&D</strong>.<br><br><strong>Why it matters:</strong> Know who's close to delivery before you're paged.",
       spotlightText: "This is <strong>Maria Santos</strong>, a laboring patient. Notice the cervical status, ETFD/ETD predictions, and condition tags.",
       targetElement: "res-card-maria",
       requiresAction: false,
@@ -25402,7 +26813,7 @@ ${content.innerHTML}
     {
       num: 4,
       title: "Understanding ETFD & ETD",
-      body: "Every patient card shows two key predictions:<br><br>• <strong>ETFD</strong> = Estimated Time to Full Dilation<br>• <strong>ETD</strong> = Estimated Time of Delivery<br><br>Use these to plan your rounds and anticipate busy delivery periods.",
+      body: "• <strong>ETFD</strong> = Estimated Time to Full Dilation<br>• <strong>ETD</strong> = Estimated Time of Delivery<br><br><strong>Why it matters:</strong> Plan rounds and know when you'll be busy.",
       targetElement: "res-card-maria",
       requiresAction: false,
       highlightEtfdEtd: true
@@ -25410,7 +26821,7 @@ ${content.innerHTML}
     {
       num: 5,
       title: "Patient Card Overview",
-      body: "Each card displays critical information at a glance. The arrows point to key elements you'll use to quickly assess each patient.<br><br><strong>Note Timer</strong> shows time until next note is due (Q4H Latent, Q2H Active, Q1H Pushing).",
+      body: "Critical info at a glance. <strong>Note Timer</strong> shows when your next note is due (Q4H Latent, Q2H Active, Q1H Pushing).<br><br><strong>Why it matters:</strong> Never miss a note deadline.",
       targetElement: "res-card-maria",
       requiresAction: false,
       highlightCardElements: true
@@ -25418,7 +26829,7 @@ ${content.innerHTML}
     {
       num: 6,
       title: "Open Patient Drawer",
-      body: "Click on any <strong>patient card</strong> to open the detailed drawer.<br><br>The drawer contains comprehensive clinical information — everything you need for patient care.",
+      body: "Click any card for the full clinical picture — no Epic tab hunting.<br><br><strong>Why it matters:</strong> Everything in one place.",
       targetElement: "res-card-maria",
       spotlightText: "<strong>Click this card</strong> to open Maria's full details.",
       requiresAction: true,
@@ -25629,7 +27040,7 @@ ${content.innerHTML}
     {
       num: 24,
       title: "Handoff Summary",
-      body: "AI-generated <strong>narrative summary</strong> of the patient's status — perfect for quick handoffs.<br><br>Includes key clinical facts and anticipated timeline.",
+      body: "AI-generated <strong>narrative summary</strong> with key facts and anticipated timeline.<br><br><strong>Why it matters:</strong> The whole story in 30 seconds.",
       spotlightText: "See the AI <strong>Handoff Summary</strong>.",
       targetElement: "res-section-handoff-summary",
       requiresAction: false,
@@ -25641,7 +27052,7 @@ ${content.innerHTML}
     {
       num: 25,
       title: "Complete a Delivery Note",
-      body: "Now let's look at a <strong>delivered patient</strong>. Delivered patients show a <strong>green checkmark</strong> with delivery time and a <strong>Complete Delivery Note</strong> button.<br><br>Click the <strong>Complete Delivery Note</strong> button on Christina Park's card.",
+      body: "Delivered patients show a <strong>green checkmark</strong> and <strong>Complete Delivery Note</strong> button.<br><br><strong>Why it matters:</strong> 30-second notes instead of 10-minute dictations.",
       targetElement: "res-card-christina",
       spotlightText: "<strong>Click Complete Delivery Note</strong> to open the delivery note.",
       requiresAction: true,
@@ -25651,7 +27062,7 @@ ${content.innerHTML}
     {
       num: 26,
       title: "Data Auto-Filled from Epic",
-      body: "Most delivery data is <strong>automatically pulled from Epic</strong> — patient demographics, labor progress, delivery time, and more.<br><br>Fields shown in <span style='color:#f97316;font-weight:600;'>orange</span> still need to be filled. Everything else is ready!",
+      body: "Most data <strong>auto-fills from Epic</strong>. <span style='color:#f97316;font-weight:600;'>Orange fields</span> need your input.<br><br><strong>Why it matters:</strong> No retyping what's already charted.",
       targetElement: null,
       requiresAction: false,
       ensureDeliveryNoteOpen: true,
@@ -25660,7 +27071,7 @@ ${content.innerHTML}
     {
       num: 27,
       title: "Your Preference Card",
-      body: "Your <strong>preference card</strong> auto-fills your preferred values (shown in <span style='color:#0d9488;font-weight:600;'>teal</span>).<br><br>Click any value to <strong>change it</strong> for this delivery only, or update your defaults.",
+      body: "Your <strong>preference card</strong> auto-fills defaults (<span style='color:#0d9488;font-weight:600;'>teal</span>). Click to change.<br><br><strong>Why it matters:</strong> Your preferences, every time.",
       targetElement: "dn-preference-card-content",
       requiresAction: false,
       ensureDeliveryNoteOpen: true,
@@ -25670,7 +27081,7 @@ ${content.innerHTML}
     {
       num: 28,
       title: "Fill the Remaining Field",
-      body: "Click the orange <strong>Placenta Appearance</strong> field to complete the note.<br><br>The dropdown shows standardized options from the PRD.",
+      body: "Click the orange field to complete the note.<br><br><strong>Why it matters:</strong> Dropdown options ensure accurate documentation.",
       targetElement: "dn-field-appearance",
       spotlightText: "<strong>Click Placenta Appearance</strong> to fill it",
       requiresAction: true,
@@ -25681,7 +27092,7 @@ ${content.innerHTML}
     {
       num: 29,
       title: "Edit & Sign",
-      body: "Use the <strong>Edit button</strong> to make any changes to the note. When ready, click <strong>Sign & Send</strong> to preview before filing to Epic.",
+      body: "Edit if needed, then <strong>Sign & Send</strong> to preview before filing.<br><br><strong>Why it matters:</strong> Final review before it's permanent.",
       targetElement: "resDnSendBtn",
       spotlightText: "Click <strong>Sign & Send</strong> to preview the document",
       requiresAction: true,
@@ -25692,7 +27103,7 @@ ${content.innerHTML}
     {
       num: 30,
       title: "Epic Document Preview",
-      body: "This is the <strong>Epic Document Preview</strong> — a formatted view of exactly what will be filed to the EHR.<br><br>Review the structured data and narrative, then click <strong>Sign & Send to Epic</strong> to complete filing.",
+      body: "Review exactly what will be filed to the EHR.<br><br><strong>Why it matters:</strong> One click to file the note.",
       targetElement: null,
       spotlightText: "Click <strong>Sign & Send</strong> to file the document",
       useSpotlightPopup: true,
@@ -25703,7 +27114,7 @@ ${content.innerHTML}
     {
       num: 31,
       title: "Note Filed Successfully!",
-      body: "Your delivery note has been <strong>signed and sent to Epic</strong>.<br><br>If additional information comes in later from the Delivery Summary or Epic, just update the note in Birth Model and it will sync to the patient's chart.",
+      body: "Your delivery note has been <strong>signed and sent to Epic</strong>. Update later if needed — it will sync to the chart.<br><br><strong>Why it matters:</strong> Documentation done, move on to the next delivery.",
       targetElement: null,
       requiresAction: false,
       showSuccessConfirmation: true
@@ -25711,7 +27122,7 @@ ${content.innerHTML}
     {
       num: 32,
       title: "Explore All Sections",
-      body: "As a resident, you need visibility across the entire L&D unit. Let's visit each section to see patients in different areas.",
+      body: "Visit each section to see patients in different areas of the unit.<br><br><strong>Why it matters:</strong> Know the whole floor, not just your section.",
       targetElement: "resident-section-tabs",
       closeDrawerFirst: true,
       closeDeliveryNoteFirst: true,
@@ -25982,11 +27393,11 @@ ${content.innerHTML}
 
     document.getElementById('residentDrawerOverlay').classList.add('open');
 
-    // Track action completion for step 5 (Open Maria's laboring drawer)
-    if (residentStep_ === 5 && patient === 'maria') {
+    // Track action completion for step 6 (Open Maria's laboring drawer)
+    if (residentStep_ === 6 && patient === 'maria') {
       residentActionCompleted = true;
       showResidentSuccess('Maria\'s drawer opened!');
-      // Auto-advance to step 6 after opening drawer - longer delay for readability
+      // Auto-advance to step 7 after opening drawer - longer delay for readability
       setTimeout(function() {
         residentStep(1);
       }, 1800);
@@ -26246,8 +27657,8 @@ ${content.innerHTML}
 
   function openResidentDeliveryNote(patient) {
     document.getElementById('residentDeliveryNoteOverlay').classList.add('open');
-    // Track action completion for step 24 (Complete a Delivery Note - opens delivery note)
-    if (residentStep_ === 24) {
+    // Track action completion for step 25 (Complete a Delivery Note - opens delivery note)
+    if (residentStep_ === 25) {
       residentActionCompleted = true;
       step24SpotlightMode = false; // Reset spotlight mode
       // Remove spotlight popup immediately
@@ -26322,8 +27733,8 @@ ${content.innerHTML}
     }
 
     document.getElementById('epicPreviewOverlay').classList.add('open');
-    // Track tour progress - step 28 (click Sign & Send to open preview)
-    if (typeof residentStep_ !== 'undefined' && residentStep_ === 28) {
+    // Track tour progress - step 29 (click Sign & Send to open preview)
+    if (typeof residentStep_ !== 'undefined' && residentStep_ === 29) {
       residentActionCompleted = true;
       showResidentSuccess('Preview opened!');
       setTimeout(function() {
@@ -26361,8 +27772,8 @@ ${content.innerHTML}
       }
     }
 
-    // Track tour progress - step 29 (Send to Epic) - advance to step 30 (confirmation)
-    if (typeof residentStep_ !== 'undefined' && residentStep_ === 29) {
+    // Track tour progress - step 30 (Send to Epic) - advance to step 31 (confirmation)
+    if (typeof residentStep_ !== 'undefined' && residentStep_ === 30) {
       residentActionCompleted = true;
       setTimeout(function() {
         residentStep(1);
@@ -26407,10 +27818,14 @@ ${content.innerHTML}
       // Update missing count
       updateDnMissingCount();
 
-      // Check if this completes a step action (step 27 - Fill the Remaining Field)
-      if (typeof residentActionCompleted !== 'undefined' && residentStep_ === 27) {
+      // Check if this completes a step action (step 28 - Fill the Remaining Field)
+      if (typeof residentActionCompleted !== 'undefined' && residentStep_ === 28) {
         residentActionCompleted = true;
         showResidentSuccess('Field filled!');
+        // Auto-advance to step 29 (Sign & Send)
+        setTimeout(function() {
+          residentStep(1);
+        }, 800);
       }
     }
   }
@@ -26634,13 +28049,17 @@ ${content.innerHTML}
       field.classList.add('filled');
       updateDnMissingCount();
 
-      // Track tour progress - step 27 (Fill Remaining Field)
-      if (typeof residentStep_ !== 'undefined' && residentStep_ === 27) {
+      // Track tour progress - step 28 (Fill Remaining Field)
+      if (typeof residentStep_ !== 'undefined' && residentStep_ === 28) {
         residentActionCompleted = true;
         // Remove spotlight popup
         const spotlightPopup = document.getElementById('resident-spotlight-popup');
         if (spotlightPopup) spotlightPopup.remove();
         showResidentSuccess('Field completed!');
+        // Auto-advance to step 29 (Sign & Send)
+        setTimeout(function() {
+          residentStep(1);
+        }, 800);
       }
     }
     closeDnDropdown();
@@ -26658,13 +28077,17 @@ ${content.innerHTML}
       field.classList.add('filled');
       updateDnMissingCount();
 
-      // Track tour progress - step 27 (Fill a Field)
-      if (typeof residentStep_ !== 'undefined' && residentStep_ === 27) {
+      // Track tour progress - step 28 (Fill a Field)
+      if (typeof residentStep_ !== 'undefined' && residentStep_ === 28) {
         residentActionCompleted = true;
         // Remove spotlight popup
         const spotlightPopup = document.getElementById('resident-spotlight-popup');
         if (spotlightPopup) spotlightPopup.remove();
         showResidentSuccess('Field completed!');
+        // Auto-advance to step 29 (Sign & Send)
+        setTimeout(function() {
+          residentStep(1);
+        }, 800);
       }
     }
     closeDnDropdown();
@@ -27988,12 +29411,19 @@ ${content.innerHTML}
     const demo = document.getElementById('demo-' + role);
     if (demo) {
       demo.classList.add('active');
+      console.log('Demo ' + role + ' activated');
       // Initialize step content
       if (role === 'charge') {
+        // Ensure step guide is visible before initializing
+        document.getElementById('charge-step-guide').classList.add('active');
         initializeChargeDemo();
         updateChargeStep();
       }
-      if (role === 'nurse') updateNurseStep();
+      if (role === 'nurse') {
+        // Ensure step guide is visible before initializing
+        document.getElementById('nurse-step-guide').classList.add('active');
+        updateNurseStep();
+      }
       if (role === 'clinician') {
         // Close any open drawers/modals when starting
         document.getElementById('clinicianDrawerOverlay').classList.remove('open');
@@ -28014,34 +29444,8 @@ ${content.innerHTML}
 
   // Initialize charge demo to start in "All" section
   function initializeChargeDemo() {
-    const allTab = document.querySelector('#demo-charge .section-tab[onclick*="all"]');
-    if (allTab) {
-      document.querySelectorAll('#demo-charge .section-tab').forEach(t => t.classList.remove('active'));
-      allTab.classList.add('active');
-
-      const section = sectionData['all'];
-      currentSection = 'all';
-
-      // Update section header
-      const sectionHeader = document.querySelector('#demo-charge .section-header .section-name');
-      const sectionCount = document.querySelector('#demo-charge .section-header .section-count');
-      if (sectionHeader) sectionHeader.textContent = section.name;
-      if (sectionCount) sectionCount.textContent = section.patients + ' patients';
-
-      // Update staffing
-      const staffingLabel = document.querySelector('#charge-staffing .staffing-label');
-      const thisShiftBox = document.querySelector('#charge-staffing .staffing-box.this-shift .staffing-value');
-      const nextShiftBox = document.querySelector('#charge-staffing .staffing-box.next-shift .staffing-value');
-      if (staffingLabel) staffingLabel.textContent = section.name + ' Nurses';
-      if (thisShiftBox) thisShiftBox.textContent = section.thisShift;
-      if (nextShiftBox) nextShiftBox.textContent = section.nextShift;
-
-      // Update cards
-      const cardsContainer = document.querySelector('#demo-charge #charge-cards');
-      if (cardsContainer && section.cards) {
-        cardsContainer.innerHTML = section.cards;
-      }
-    }
+    // Initialize to All L&D section
+    switchChargeSection('all');
   }
 
   // Initialize resident card sections on page load
