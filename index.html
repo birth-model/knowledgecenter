@@ -35075,7 +35075,6 @@ ${content.innerHTML}
 
   // Initialize demos when they're shown
   function startDemo(role) {
-    alert('startDemo called with role: ' + role);
     console.log('startDemo called with role:', role);
     // Check if tour was previously completed for this role
     let tourCompleted = false;
@@ -35119,7 +35118,6 @@ ${content.innerHTML}
     }
 
     // Otherwise, start demo normally
-    console.log('About to call actuallyStartDemo for role:', role);
     actuallyStartDemo(role);
   }
 
@@ -35224,7 +35222,6 @@ ${content.innerHTML}
   }
 
   function actuallyStartDemo(role) {
-    console.log('actuallyStartDemo called with role:', role);
     document.getElementById('landing').style.display = 'none';
     document.querySelectorAll('.demo-page').forEach(p => p.classList.remove('active'));
 
@@ -35234,10 +35231,8 @@ ${content.innerHTML}
     if (skipBtn) skipBtn.style.display = 'block';
 
     const demo = document.getElementById('demo-' + role);
-    console.log('Demo element for ' + role + ':', demo);
     if (demo) {
       demo.classList.add('active');
-      console.log('Demo ' + role + ' activated');
       // Initialize step content
       if (role === 'charge') {
         // Ensure step guide is visible before initializing
@@ -35261,24 +35256,16 @@ ${content.innerHTML}
         updateClinicianStep();
       }
       if (role === 'resident') {
-        console.log('Starting resident demo...');
         // Close any open drawers/modals when starting
         const resDrawer = document.getElementById('residentDrawerOverlay');
         if (resDrawer) resDrawer.classList.remove('open');
         const resDnOverlay = document.getElementById('residentDeliveryNoteOverlay');
         if (resDnOverlay) resDnOverlay.classList.remove('open');
         // Ensure step guide is visible before initializing
-        const resStepGuide = document.getElementById('resident-step-guide');
-        console.log('Resident step guide element:', resStepGuide);
-        if (resStepGuide) {
-          resStepGuide.classList.add('active');
-          console.log('Added active class to resident step guide');
-        }
+        document.getElementById('resident-step-guide').classList.add('active');
         // Initialize resident demo to L&D South view
         switchResidentSection('south');
-        console.log('Switched to south section');
         updateResidentStep();
-        console.log('Updated resident step');
       }
     } else {
       console.error('Demo element not found for role:', role);
